@@ -1,0 +1,194 @@
+/* config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* have DOM level 1 support */
+#undef DOM1
+
+/* have DOM level 2 support */
+#undef DOM2
+
+/* have DOM level 3 support */
+#undef DOM3
+
+/* DOMUserDataHandler callback style */
+#undef DOMUSERDATAHANDLER_ARG5_CONST
+
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* xerces has class DOMAttr */
+#undef HAVE_DOMATTR
+
+/* xerces has DOMAttr::getSchemaTypeInfo */
+#undef HAVE_DOMATTR_GETSCHEMATYPEINFO
+
+/* xerces has class DOMConfiguration */
+#undef HAVE_DOMCONFIGURATION
+
+/* xerces has DOMConfiguration boolean support */
+#undef HAVE_DOMCONFIGURATION_BOOLEAN
+
+/* xerces has class DOMDocument */
+#undef HAVE_DOMDOCUMENT
+
+/* xerces has DOMDocument::getDOMConfig */
+#undef HAVE_DOMDOCUMENT_GETDOMCONFIG
+
+/* xerces has DOMDocument::getInputEncoding */
+#undef HAVE_DOMDOCUMENT_GETINPUTENCODING
+
+/* xerces has DOMDocument::getXmlEncoding */
+#undef HAVE_DOMDOCUMENT_GETXMLENCODING
+
+/* xerces has DOMDocument::getXmlStandalone */
+#undef HAVE_DOMDOCUMENT_GETXMLSTANDALONE
+
+/* xerces has DOMDocument::getXmlVersion */
+#undef HAVE_DOMDOCUMENT_GETXMLVERSION
+
+/* xerces has DOMDocument::setXmlStandalone */
+#undef HAVE_DOMDOCUMENT_SETXMLSTANDALONE
+
+/* xerces has DOMDocument::setXmlVersion */
+#undef HAVE_DOMDOCUMENT_SETXMLVERSION
+
+/* xerces has class DOMElement */
+#undef HAVE_DOMELEMENT
+
+/* xerces has DOMElement::getSchemaTypeInfo */
+#undef HAVE_DOMELEMENT_GETSCHEMATYPEINFO
+
+/* xerces has DOMElement::setIdAttributeNode */
+#undef HAVE_DOMELEMENT_SETIDATTRIBUTENODE_2ARG
+
+/* xerces has DOMElement::setIdAttributeNS */
+#undef HAVE_DOMELEMENT_SETIDATTRIBUTENS_3ARG
+
+/* xerces has DOMElement::setIdAttribute */
+#undef HAVE_DOMELEMENT_SETIDATTRIBUTE_2ARG
+
+/* xerces has class DOMEntity */
+#undef HAVE_DOMENTITY
+
+/* xerces has DOMEntity::getInputEncoding */
+#undef HAVE_DOMENTITY_GETINPUTENCODING
+
+/* xerces has DOMEntity::getXmlEncoding */
+#undef HAVE_DOMENTITY_GETXMLENCODING
+
+/* xerces has DOMEntity::getXmlVersion */
+#undef HAVE_DOMENTITY_GETXMLVERSION
+
+/* xerces has class DOMLocator */
+#undef HAVE_DOMLOCATOR
+
+/* xerces has DOMLocator::getByteOffset */
+#undef HAVE_DOMLOCATOR_GETBYTEOFFSET
+
+/* xerces has DOMLocator::getRelatedNode */
+#undef HAVE_DOMLOCATOR_GETRELATEDNODE
+
+/* xerces has DOMLocator::getUtf16Offset */
+#undef HAVE_DOMLOCATOR_GETUTF16OFFSET
+
+/* xerces has class DOMLocator */
+#undef HAVE_DOMNODE
+
+/* xerces has DOMNode::compareDocumentPosition */
+#undef HAVE_DOMNODE_COMPAREDOCUMENTPOSITION
+
+/* xerces has DOMNode::lookupPrefix */
+#undef HAVE_DOMNODE_LOOKUPPREFIX
+
+/* xerces has class DOMStringList */
+#undef HAVE_DOMSTRINGLIST
+
+/* xerces has class DOMText */
+#undef HAVE_DOMTEXT
+
+/* xerces has DOMText::getIsElementContentWhitespace */
+#undef HAVE_DOMTEXT_GETISELEMENTCONTENTWHITESPACE
+
+/* xerces has class DOMTypeInfo */
+#undef HAVE_DOMTYPEINFO
+
+/* xerces has DOMTypeInfo::getTypeName */
+#undef HAVE_DOMTYPEINFO_GETTYPENAME
+
+/* xerces has DOMTypeInfo::getTypeNamespace */
+#undef HAVE_DOMTYPEINFO_GETTYPENAMESPACE
+
+/* xerces has DOMTypeInfo::isDerivedFrom */
+#undef HAVE_DOMTYPEINFO_ISDERIVEDFROM
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `xerces-c' library (-lxerces-c). */
+#undef HAVE_LIBXERCES_C
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if stdbool.h conforms to C99. */
+#undef HAVE_STDBOOL_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the `strrchr' function. */
+#undef HAVE_STRRCHR
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if the system has the type `_Bool'. */
+#undef HAVE__BOOL
+
+/* Define to the sub-directory in which libtool stores uninstalled libraries.
+   */
+#undef LT_OBJDIR
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#undef size_t

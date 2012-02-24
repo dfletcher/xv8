@@ -1,0 +1,97 @@
+--------------------------
+  xv8
+  (c) 2012 Dave Fletcher
+  All Rights Reserved
+--------------------------
+
+xv8 adds XML capability to Google's v8 Javascript engine. Currently this means
+it has the features of DOM (level 3, see below). Future versions will add
+support for the following technologies:
+
+  * Load/save API (http://www.w3.org/TR/DOM-Level-3-LS/load-save.html)
+  * SAX parsing: event based XML traversal
+
+Future plans:
+
+  * XSLT stylesheet support
+  * XPath: document.evaluate()
+  * XHR
+  * Apache module
+
+At the heart of xv8 lies a bridge between the v8 engine and Xerces. Xerces is
+an XML parsing and DOM library from Apache. It is available on most *nix-like
+systems and should build on many others. v8 is the Javascript engine that is
+inside Google's chrome browser, but packaged separately. Separated like this,
+the v8 engine alone has none of the document handling ability web developers
+have come to expect in a Javascript environment, so the xv8 library and shell
+program attempt to address this.
+
+xv8 does *not* parse HTML. This is not planned. Parsed documents must be
+well-formed XML. However the script can output HTML or any other format, it
+does not care what is written out. Also, once XSLT support is ready, XML
+output can be transformed to HTML.
+
+NOTE 1: this current version tagged "0.0.0" is a technology preview. This
+project is in an early alpha stage and is available now on github for early
+adopters, testers, and experimenters.
+
+NOTE 2: the shell program is not yet ready and the version in git is just a
+copy of the test v8 shell. So currently to write test code please use the
+format of test/testdom.xml and use the test/testdom program from the command
+line. For example: `./test/testdom ./test/testdom.xml` which is what happens
+when running `make check`. You may need to set LD_LIBRARY_PATH (or PATH in
+Cygwin) in order to run ./test/testdom without installing.
+
+NOTE 3: this especially early version still has some errors in the `make check`
+tests. They are known so please don't report those.
+
+Building xv8
+------------
+
+  mkdir _build
+  cd _build
+
+example debug build:
+  ../configure
+  make
+
+example release build:
+  ../configure --prefix=/usr CXXFLAGS="-O3"
+  make
+
+The build will require the Xerces-C++ library in your system library path and
+the Xerces include files in a standard location. Check your local distribution
+for xerces-c and xerces-c-devel packages or similar.
+
+The version of Xerces you install will affect which DOM functions are available
+in Javascript at runtime. Earlier verisons of Xerces don't support the entire
+DOM level 3 specification. The build detects this and disables functions and
+properties that do not exist.
+
+The build also requires v8. If you do not have v8 on your system, the xv8 build
+system can build it for you. In order to auto-build v8, `git` and `scons`
+programs are required.
+
+example debug build with v8:
+  ../configure --enable-v8-build --with-v8-jobs=6
+  make
+
+Note that the --with-v8-jobs specifies the number of jobs `scons` should use to
+build v8. For a fast built, set it to [num CPUs - 1]. The -j[n] option to
+`make` itself may not currently work, but would not speed up the build much in
+any case - there are very few files in xv8 itself.
+
+Testing xv8
+-----------
+
+  make check
+
+This will run a battery of tests
+
+TODO
+----
+
+  * more complete basic DOM tests
+  * separate DOM tests by level
+  * improve the C++ API
+  * C++ and Javascript API for binding code to Element creation

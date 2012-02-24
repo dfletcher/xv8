@@ -1,0 +1,3021 @@
+<?xml version='1.0'?>
+
+<tests default-document-href='testdoc.xhtml'>
+
+  <!--test id='JS.context-write'>
+    <js><![CDATA[
+      // Set __context_check__ global to a number.
+      __context_check__ = 3.14159265;
+      return typeof(__context_check__) != 'undefined';
+    ]]></js>
+  </test>
+
+  <test id='JS.context-read' prereq='JS.context-write'>
+    <js><![CDATA[
+      // If this javascript is running in a different context from the check
+      // in JS.context-write, then __context_check__ should not be defined.
+      // Each test having separate documents is supposed to guarantee this.
+      return typeof(__context_check__) === 'undefined';
+    ]]></js>
+  </test-->
+
+  <!--
+    Document Element Attr Text CDATASection EntityReference Entity ProcessingInstruction Comment  DocumentType DocumentFragment Notation
+  -->
+
+  <test id='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document)+') ');
+      return typeof(document) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ELEMENT_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.ELEMENT_NODE)+') ');
+      return typeof(document.ELEMENT_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ELEMENT_NODE.2' prereq='DOM.Document.ELEMENT_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.ELEMENT_NODE + ') ');
+      return document.ELEMENT_NODE === 1;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ELEMENT_NODE.3' prereq='DOM.Document.ELEMENT_NODE.2'>
+    <js><![CDATA[
+      document.ELEMENT_NODE === 999;
+      print('(' + document.ELEMENT_NODE + ') ');
+      return document.ELEMENT_NODE === 1;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ELEMENT_NODE' prereq='DOM.Document.ELEMENT_NODE.3' />
+
+  <test id='DOM.Document.ATTRIBUTE_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.ATTRIBUTE_NODE)+') ');
+      return typeof(document.ATTRIBUTE_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ATTRIBUTE_NODE.2' prereq='DOM.Document.ATTRIBUTE_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.ATTRIBUTE_NODE + ') ');
+      return document.ATTRIBUTE_NODE === 2;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ATTRIBUTE_NODE.3' prereq='DOM.Document.ATTRIBUTE_NODE.2'>
+    <js><![CDATA[
+      document.ATTRIBUTE_NODE === 999;
+      print('(' + document.ATTRIBUTE_NODE + ') ');
+      return document.ATTRIBUTE_NODE === 2;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ATTRIBUTE_NODE' prereq='DOM.Document.ATTRIBUTE_NODE.3' />
+
+  <test id='DOM.Document.TEXT_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.TEXT_NODE)+') ');
+      return typeof(document.TEXT_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.TEXT_NODE.2' prereq='DOM.Document.TEXT_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.TEXT_NODE + ') ');
+      return document.TEXT_NODE === 3;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.TEXT_NODE.3' prereq='DOM.Document.TEXT_NODE.2'>
+    <js><![CDATA[
+      document.TEXT_NODE === 999;
+      print('(' + document.TEXT_NODE + ') ');
+      return document.TEXT_NODE === 3;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.TEXT_NODE' prereq='DOM.Document.TEXT_NODE.3' />
+
+  <test id='DOM.Document.CDATA_SECTION_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.CDATA_SECTION_NODE)+') ');
+      return typeof(document.CDATA_SECTION_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.CDATA_SECTION_NODE.2' prereq='DOM.Document.CDATA_SECTION_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.CDATA_SECTION_NODE + ') ');
+      return document.CDATA_SECTION_NODE === 4;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.CDATA_SECTION_NODE.3' prereq='DOM.Document.CDATA_SECTION_NODE.2'>
+    <js><![CDATA[
+      document.CDATA_SECTION_NODE === 999;
+      print('(' + document.CDATA_SECTION_NODE + ') ');
+      return document.CDATA_SECTION_NODE === 4;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.CDATA_SECTION_NODE' prereq='DOM.Document.CDATA_SECTION_NODE.3' />
+
+  <test id='DOM.Document.ENTITY_REFERENCE_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.ENTITY_REFERENCE_NODE)+') ');
+      return typeof(document.ENTITY_REFERENCE_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ENTITY_REFERENCE_NODE.2' prereq='DOM.Document.ENTITY_REFERENCE_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.ENTITY_REFERENCE_NODE + ') ');
+      return document.ENTITY_REFERENCE_NODE === 5;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ENTITY_REFERENCE_NODE.3' prereq='DOM.Document.ENTITY_REFERENCE_NODE.2'>
+    <js><![CDATA[
+      document.ENTITY_REFERENCE_NODE === 999;
+      print('(' + document.ENTITY_REFERENCE_NODE + ') ');
+      return document.ENTITY_REFERENCE_NODE === 5;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ENTITY_REFERENCE_NODE' prereq='DOM.Document.ENTITY_REFERENCE_NODE.3' />
+
+  <test id='DOM.Document.ENTITY_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.ENTITY_NODE)+') ');
+      return typeof(document.ENTITY_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ENTITY_NODE.2' prereq='DOM.Document.ENTITY_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.ENTITY_NODE + ') ');
+      return document.ENTITY_NODE === 6;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ENTITY_NODE.3' prereq='DOM.Document.ENTITY_NODE.2'>
+    <js><![CDATA[
+      document.ENTITY_NODE === 999;
+      print('(' + document.ENTITY_NODE + ') ');
+      return document.ENTITY_NODE === 6;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ENTITY_NODE' prereq='DOM.Document.ENTITY_NODE.3' />
+
+  <test id='DOM.Document.PROCESSING_INSTRUCTION_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.PROCESSING_INSTRUCTION_NODE)+') ');
+      return typeof(document.PROCESSING_INSTRUCTION_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.PROCESSING_INSTRUCTION_NODE.2' prereq='DOM.Document.PROCESSING_INSTRUCTION_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.PROCESSING_INSTRUCTION_NODE + ') ');
+      return document.PROCESSING_INSTRUCTION_NODE === 7;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.PROCESSING_INSTRUCTION_NODE.3' prereq='DOM.Document.PROCESSING_INSTRUCTION_NODE.2'>
+    <js><![CDATA[
+      document.PROCESSING_INSTRUCTION_NODE === 999;
+      print('(' + document.PROCESSING_INSTRUCTION_NODE + ') ');
+      return document.PROCESSING_INSTRUCTION_NODE === 7;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.PROCESSING_INSTRUCTION_NODE' prereq='DOM.Document.PROCESSING_INSTRUCTION_NODE.3' />
+
+  <test id='DOM.Document.COMMENT_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.COMMENT_NODE)+') ');
+      return typeof(document.COMMENT_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.COMMENT_NODE.2' prereq='DOM.Document.COMMENT_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.COMMENT_NODE + ') ');
+      return document.COMMENT_NODE === 8;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.COMMENT_NODE.3' prereq='DOM.Document.COMMENT_NODE.2'>
+    <js><![CDATA[
+      document.COMMENT_NODE === 999;
+      print('(' + document.COMMENT_NODE + ') ');
+      return document.COMMENT_NODE === 8;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.COMMENT_NODE' prereq='DOM.Document.COMMENT_NODE.3' />
+
+  <test id='DOM.Document.DOCUMENT_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.DOCUMENT_NODE)+') ');
+      return typeof(document.DOCUMENT_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_NODE.2' prereq='DOM.Document.DOCUMENT_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_NODE + ') ');
+      return document.DOCUMENT_NODE === 9;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_NODE.3' prereq='DOM.Document.DOCUMENT_NODE.2'>
+    <js><![CDATA[
+      document.DOCUMENT_NODE === 999;
+      print('(' + document.DOCUMENT_NODE + ') ');
+      return document.DOCUMENT_NODE === 9;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_NODE' prereq='DOM.Document.DOCUMENT_NODE.3' />
+
+  <test id='DOM.Document.DOCUMENT_TYPE_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.DOCUMENT_TYPE_NODE)+') ');
+      return typeof(document.DOCUMENT_TYPE_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_TYPE_NODE.2' prereq='DOM.Document.DOCUMENT_TYPE_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_TYPE_NODE + ') ');
+      return document.DOCUMENT_TYPE_NODE === 10;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_TYPE_NODE.3' prereq='DOM.Document.DOCUMENT_TYPE_NODE.2'>
+    <js><![CDATA[
+      document.DOCUMENT_TYPE_NODE === 999;
+      print('(' + document.DOCUMENT_TYPE_NODE + ') ');
+      return document.DOCUMENT_TYPE_NODE === 10;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_TYPE_NODE' prereq='DOM.Document.DOCUMENT_TYPE_NODE.3' />
+
+  <test id='DOM.Document.DOCUMENT_FRAGMENT_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.DOCUMENT_FRAGMENT_NODE)+') ');
+      return typeof(document.DOCUMENT_FRAGMENT_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_FRAGMENT_NODE.2' prereq='DOM.Document.DOCUMENT_FRAGMENT_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_FRAGMENT_NODE + ') ');
+      return document.DOCUMENT_FRAGMENT_NODE === 11;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_FRAGMENT_NODE.3' prereq='DOM.Document.DOCUMENT_FRAGMENT_NODE.2'>
+    <js><![CDATA[
+      document.DOCUMENT_FRAGMENT_NODE === 999;
+      print('(' + document.DOCUMENT_FRAGMENT_NODE + ') ');
+      return document.DOCUMENT_FRAGMENT_NODE === 11;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_FRAGMENT_NODE' prereq='DOM.Document.DOCUMENT_FRAGMENT_NODE.3' />
+
+  <test id='DOM.Document.NOTATION_NODE.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.NOTATION_NODE)+') ');
+      return typeof(document.NOTATION_NODE) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.NOTATION_NODE.2' prereq='DOM.Document.NOTATION_NODE.1'>
+    <js><![CDATA[
+      print('(' + document.NOTATION_NODE + ') ');
+      return document.NOTATION_NODE === 12;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.NOTATION_NODE.3' prereq='DOM.Document.NOTATION_NODE.2'>
+    <js><![CDATA[
+      document.NOTATION_NODE === 999;
+      print('(' + document.NOTATION_NODE + ') ');
+      return document.NOTATION_NODE === 12;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.NOTATION_NODE' prereq='DOM.Document.NOTATION_NODE.3' />
+
+  <test id='DOM.Document.NodeType' prereq='DOM.Document.ELEMENT_NODE DOM.Document.ATTRIBUTE_NODE DOM.Document.TEXT_NODE DOM.Document.CDATA_SECTION_NODE DOM.Document.ENTITY_REFERENCE_NODE DOM.Document.ENTITY_NODE DOM.Document.PROCESSING_INSTRUCTION_NODE DOM.Document.COMMENT_NODE DOM.Document.DOCUMENT_NODE DOM.Document.DOCUMENT_TYPE_NODE DOM.Document.DOCUMENT_FRAGMENT_NODE DOM.Document.NOTATION_NODE' />
+
+  <test id='DOM.Document.nodeName.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.nodeName)+') ');
+      return typeof(document.nodeName) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeName.2' prereq='DOM.Document.nodeName.1'>
+    <js><![CDATA[
+      print('('+document.nodeName+') ');
+      return document.nodeName === '#document';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeName.3' prereq='DOM.Document.nodeName.2'>
+    <js><![CDATA[
+      document.nodeName = '++incorrect--';
+      print('('+document.nodeName+') ');
+      return document.nodeName === '#document';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeName' prereq='DOM.Document.nodeName.3' />
+
+  <test id='DOM.Document.nodeValue.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.nodeValue)+') ');
+      return typeof(document.nodeValue) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeValue.2' prereq='DOM.Document.nodeValue.1'>
+    <js><![CDATA[
+      print('('+document.nodeValue+') ');
+      return document.nodeValue === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeValue.3' prereq='DOM.Document.nodeValue.2'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.nodeValue = '++incorrect--'; }
+      catch(ex) { okay = true; }
+      print('('+document.nodeValue+') ');
+      return okay && (document.nodeValue === null);
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeValue' prereq='DOM.Document.nodeValue.3' />
+
+  <test id='DOM.Document.nodeType.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.nodeType)+') ');
+      return typeof(document.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeType.2' prereq='DOM.Document.nodeType.1'>
+    <js><![CDATA[
+      print('('+document.nodeType+') ');
+      return document.nodeType === document.DOCUMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeType.3' prereq='DOM.Document.nodeType.2'>
+    <js><![CDATA[
+      document.nodeType = 1;
+      print('('+document.nodeType+') ');
+      return document.nodeType === document.DOCUMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeType' prereq='DOM.Document.nodeType.3' />
+
+  <test id='DOM.Document.parentNode.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.parentNode)+') ');
+      return typeof(document.parentNode) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.parentNode.2' prereq='DOM.Document.parentNode.1'>
+    <js><![CDATA[
+      print('('+document.parentNode+') ');
+      return document.parentNode === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.parentNode.3' prereq='DOM.Document.parentNode.2'>
+    <js><![CDATA[
+      document.parentNode = '++incorrect--';
+      print('('+document.parentNode+') ');
+      return document.parentNode === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.parentNode' prereq='DOM.Document.parentNode.3' />
+
+  <test id='DOM.Document.childNodes.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.childNodes)+') ');
+      return typeof(document.childNodes) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes.length.1' prereq='DOM.Document.childNodes.1'>
+    <js><![CDATA[
+      print('('+typeof(document.childNodes.length)+') ');
+      return typeof(document.childNodes.length) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes.length.2' prereq='DOM.Document.childNodes.length.1'>
+    <js><![CDATA[
+      print('('+document.childNodes.length+') ');
+      return document.childNodes.length === 1;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes.length.3' prereq='DOM.Document.childNodes.length.2'>
+    <js><![CDATA[
+      document.childNodes.length  = 999;
+      print('('+document.childNodes.length+') ');
+      return document.childNodes.length === 1;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes.item.1' prereq='DOM.Document.childNodes.length.3'>
+    <js><![CDATA[
+      print('('+typeof(document.childNodes.item)+') ');
+      return typeof(document.childNodes.item) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes.item.2' prereq='DOM.Document.childNodes.item.1'>
+    <js><![CDATA[
+      print('('+typeof(document.childNodes.item(0))+') ');
+      return typeof(document.childNodes.item(0)) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes.item.3' prereq='DOM.Document.childNodes.item.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      print('('+typeof(document.childNodes.item(0).nodeType)+') ');
+      return typeof(document.childNodes.item(0).nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes.item.4' prereq='DOM.Document.childNodes.item.3 DOM.Document.nodeType'>
+    <js><![CDATA[
+      print('('+document.childNodes.item(0).nodeType+') ');
+      return document.childNodes.item(0).nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.childNodes' prereq='DOM.Document.childNodes.item.4' />
+
+  <test id='DOM.Document.firstChild.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.firstChild)+') ');
+      return typeof(document.firstChild) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.firstChild.2' prereq='DOM.Document.firstChild.1 DOM.Document.nodeType'>
+    <js><![CDATA[
+      print('('+document.firstChild.nodeType+') ');
+      return typeof(document.firstChild.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.firstChild.3' prereq='DOM.Document.firstChild.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      document.firstChild = '++incorrect--';
+      print('('+document.firstChild.nodeType+') ');
+      return document.firstChild.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.firstChild' prereq='DOM.Document.firstChild.3' />
+
+  <test id='DOM.Document.lastChild.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.lastChild)+') ');
+      return typeof(document.lastChild) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.lastChild.2' prereq='DOM.Document.lastChild.1 DOM.Document.nodeType'>
+    <js><![CDATA[
+      print('('+document.lastChild.nodeType+') ');
+      return typeof(document.lastChild.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.lastChild.3' prereq='DOM.Document.lastChild.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      document.lastChild = '++incorrect--';
+      print('('+document.lastChild.nodeType+') ');
+      return document.lastChild.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.lastChild' prereq='DOM.Document.lastChild.3' />
+
+  <test id='DOM.Document.previousSibling.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.previousSibling)+') ');
+      return typeof(document.previousSibling) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.previousSibling.2' prereq='DOM.Document.previousSibling.1'>
+    <js><![CDATA[
+      print('('+document.previousSibling+') ');
+      return document.previousSibling === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.previousSibling.3' prereq='DOM.Document.previousSibling.2'>
+    <js><![CDATA[
+      document.previousSibling = '++incorrect--';
+      print('('+document.previousSibling+') ');
+      return document.previousSibling === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.previousSibling' prereq='DOM.Document.previousSibling.3' />
+
+  <test id='DOM.Document.nextSibling.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.nextSibling)+') ');
+      return typeof(document.nextSibling) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nextSibling.2' prereq='DOM.Document.nextSibling.1'>
+    <js><![CDATA[
+      print('('+document.nextSibling+') ');
+      return document.nextSibling === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nextSibling.3' prereq='DOM.Document.nextSibling.2'>
+    <js><![CDATA[
+      document.nextSibling = '++incorrect--';
+      print('('+document.nextSibling+') ');
+      return document.nextSibling === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nextSibling' prereq='DOM.Document.nextSibling.3' />
+
+  <test id='DOM.Document.attributes.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.attributes)+') ');
+      return typeof(document.attributes) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.attributes.2' prereq='DOM.Document.attributes.1'>
+    <js><![CDATA[
+      print('('+document.attributes+') ');
+      return document.attributes === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.attributes.3' prereq='DOM.Document.attributes.2'>
+    <js><![CDATA[
+      document.attributes = '++incorrect--';
+      print('('+document.attributes+') ');
+      return document.attributes === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.attributes' prereq='DOM.Document.attributes.3' />
+
+  <test id='DOM.Document.ownerDocument.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.ownerDocument)+') ');
+      return typeof(document.ownerDocument) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ownerDocument.2' prereq='DOM.Document.ownerDocument.1'>
+    <js><![CDATA[
+      print('('+document.ownerDocument+') ');
+      return document.ownerDocument === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ownerDocument.3' prereq='DOM.Document.ownerDocument.2'>
+    <js><![CDATA[
+      document.ownerDocument = '++incorrect--';
+      print('('+document.ownerDocument+') ');
+      return document.ownerDocument === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.ownerDocument' prereq='DOM.Document.ownerDocument.3' />
+
+  <!-- insertBefore, replaceChild, removeChild, appendChild appear later, they
+       require node creation functions to test properly. -->
+
+  <test id='DOM.Document.hasChildNodes.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.hasChildNodes)+') ');
+      return typeof(document.hasChildNodes) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.hasChildNodes.2' prereq='DOM.Document.hasChildNodes.1'>
+    <js><![CDATA[
+      print('('+document.hasChildNodes()+') ');
+      return document.hasChildNodes() === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.hasChildNodes' prereq='DOM.Document.hasChildNodes.2' />
+
+  <test id='DOM.Document.cloneNode.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.cloneNode)+') ');
+      return typeof(document.cloneNode) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.cloneNode.2' prereq='DOM.Document.cloneNode.1 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var doccopy = document.cloneNode(true);
+      print('('+doccopy.nodeType+') ');
+      return doccopy.nodeType === document.nodeType;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.cloneNode' prereq='DOM.Document.cloneNode.2' />
+
+  <test id='DOM.Document.normalize.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.normalize)+') ');
+      return typeof(document.normalize) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.normalize.2' prereq='DOM.Document.normalize.1'>
+    <js><![CDATA[
+      document.normalize(); // Hmm what's a better way to test this?
+      return true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.normalize' prereq='DOM.Document.normalize.2' />
+
+  <test id='DOM.Document.isSupported.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.isSupported)+') ');
+      return typeof(document.isSupported) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.isSupported.2' prereq='DOM.Document.isSupported.1'>
+    <js><![CDATA[
+      print('(XML/1.0: '+document.isSupported('XML', '1.0')+') ');
+      return document.isSupported('XML', '1.0');
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.isSupported.3' prereq='DOM.Document.isSupported.2'>
+    <js><![CDATA[
+      print('(XML/xxx: '+document.isSupported('XML', 'xxx')+') ');
+      return !document.isSupported('XML', 'xxx');
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.isSupported' prereq='DOM.Document.isSupported.3' />
+
+  <test id='DOM.Document.namespaceURI.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+document.namespaceURI+') ');
+      return document.namespaceURI === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.namespaceURI' prereq='DOM.Document.namespaceURI.1' />
+
+  <test id='DOM.Document.prefix.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+document.prefix+') ');
+      return document.prefix === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.prefix.2' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      document.prefix = 'test';
+      print('('+document.prefix+') ');
+      return document.prefix === 'test';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.prefix' prereq='DOM.Document.prefix.2' />
+
+  <test id='DOM.Document.localName.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+document.localName+') ');
+      return document.localName === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.localName' prereq='DOM.Document.localName.1' />
+
+  <test id='DOM.Document.hasAttributes.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.hasAttributes)+') ');
+      return typeof(document.hasAttributes) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.hasAttributes.2' prereq='DOM.Document.hasAttributes.1'>
+    <js><![CDATA[
+      print('('+document.hasAttributes()+') ');
+      return document.hasAttributes() === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.hasAttributes' prereq='DOM.Document.hasAttributes.2' />
+
+  <test id='DOM.Document.baseURI.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.baseURI)+') ');
+      return typeof(document.baseURI) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.baseURI.2' prereq='DOM.Document.baseURI.1'>
+    <js><![CDATA[
+      print('('+document.baseURI.substring(0, 15)+'...) ');
+      return document.baseURI != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.baseURI' prereq='DOM.Document.baseURI.2' />
+
+  <test id='DOM.Document.DOCUMENT_POSITION_DISCONNECTED' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_POSITION_DISCONNECTED + ') ');
+      return document.DOCUMENT_POSITION_DISCONNECTED === 0x01;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_POSITION_PRECEDING' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_POSITION_PRECEDING + ') ');
+      return document.DOCUMENT_POSITION_PRECEDING === 0x02;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_POSITION_FOLLOWING' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_POSITION_FOLLOWING + ') ');
+      return document.DOCUMENT_POSITION_FOLLOWING === 0x04;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_POSITION_CONTAINS' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_POSITION_CONTAINS + ') ');
+      return document.DOCUMENT_POSITION_CONTAINS === 0x08;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_POSITION_CONTAINED_BY' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_POSITION_CONTAINED_BY + ') ');
+      return document.DOCUMENT_POSITION_CONTAINED_BY === 0x10;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('(' + document.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC + ') ');
+      return document.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC === 0x20;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.DocumentPosition' prereq='DOM.Document.DOCUMENT_POSITION_DISCONNECTED DOM.Document.DOCUMENT_POSITION_PRECEDING DOM.Document.DOCUMENT_POSITION_FOLLOWING DOM.Document.DOCUMENT_POSITION_CONTAINS DOM.Document.DOCUMENT_POSITION_CONTAINED_BY DOM.Document.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC' />
+
+  <test id='DOM.Document.compareDocumentPosition.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.compareDocumentPosition)+') ');
+      return typeof(document.compareDocumentPosition) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.compareDocumentPosition.2' prereq='DOM.Document.compareDocumentPosition.1 DOM.Document.firstChild'>
+    <js><![CDATA[
+      var contains = document.compareDocumentPosition(document.firstChild) & 16;
+      var result = !!(contains);
+      print('(' + contains + '==16) ');
+      return result;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.compareDocumentPosition.3' prereq='DOM.Document.compareDocumentPosition.1 DOM.Document.firstChild'>
+    <js><![CDATA[
+      var contains = document.firstChild.compareDocumentPosition(document) & 8;
+      var result = !!(contains);
+      print('(' + contains + '==8) ');
+      return result;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.compareDocumentPosition' prereq='DOM.Document.compareDocumentPosition.3' />
+
+  <test id='DOM.Document.textContent.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.textContent)+') ');
+      return typeof(document.textContent) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.textContent.2' prereq='DOM.Document.textContent.1'>
+    <js><![CDATA[
+      return document.textContent != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.textContent.3' prereq='DOM.Document.textContent.2'>
+    <js><![CDATA[
+      document.textContent = 'foo';
+      return document.textContent != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.textContent' prereq='DOM.Document.textContent.3' />
+
+  <test id='DOM.Document.isSameNode.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.isSameNode)+') ');
+      return typeof(document.isSameNode) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.isSameNode.2' prereq='DOM.Document.isSameNode.1 DOM.Document.parentNode'>
+    <js><![CDATA[
+      var result = document.isSameNode(document.firstChild.parentNode);
+      print('(' + result + ') ');
+      return result;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.isSameNode.3' prereq='DOM.Document.isSameNode.1 DOM.Document.ownerDocument'>
+    <js><![CDATA[
+      var result = document.firstChild.ownerDocument.isSameNode(document);
+      print('(' + result + ') ');
+      return result;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.isSameNode' prereq='DOM.Document.isSameNode.3' />
+
+  <test id='DOM.Document.lookupPrefix.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.lookupPrefix)+') ');
+      return typeof(document.lookupPrefix) === 'function';
+    ]]></js>
+  </test>
+
+  <!-- TODO: test document.lookupPrefix -->
+
+  <test id='DOM.Document.lookupPrefix' prereq='DOM.Document.lookupPrefix.1' />
+
+  <test id='DOM.Document.isDefaultNamespace.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.isDefaultNamespace)+') ');
+      return typeof(document.isDefaultNamespace) === 'function';
+    ]]></js>
+  </test>
+
+  <!-- TODO: test document.isDefaultNamespace -->
+
+  <test id='DOM.Document.isDefaultNamespace' prereq='DOM.Document.isDefaultNamespace.1' />
+
+  <test id='DOM.Document.lookupNamespaceURI.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.lookupNamespaceURI)+') ');
+      return typeof(document.lookupNamespaceURI) === 'function';
+    ]]></js>
+  </test>
+
+  <!-- TODO: test document.lookupNamespaceURI -->
+
+  <test id='DOM.Document.lookupNamespaceURI' prereq='DOM.Document.lookupNamespaceURI.1' />
+
+  <!-- isEqualNode appears later, requires node
+       creation functions to test properly. -->
+
+  <test id='DOM.Document.getFeature.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.getFeature)+') ');
+      return typeof(document.getFeature) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getFeature.2' prereq='DOM.Document.getFeature.1'>
+    <js><![CDATA[
+      print('(NOTE: unimplemented) ');
+      return true;
+    ]]></js>
+  </test>
+
+  <!-- TODO: implement getFeature -->
+
+  <test id='DOM.Document.getFeature' prereq='DOM.Document.getFeature.2' />
+
+  <test id='DOM.Document.setUserData.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.setUserData)+') ');
+      return typeof(document.setUserData) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.setUserData.2' prereq='DOM.Document.setUserData.1'>
+    <js><![CDATA[
+      document.setUserData('a', 'b');
+      document.setUserData('c', true);
+      document.setUserData('d', { foo: function() { } } );
+      document.setUserData('e', [ 1, 2, 3, 4 ] );
+      return true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.setUserData' prereq='DOM.Document.setUserData.2' />
+
+  <test id='DOM.Document.getUserData.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.getUserData)+') ');
+      return typeof(document.getUserData) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getUserData.2' prereq='DOM.Document.getUserData.1'>
+    <js><![CDATA[
+      document.setUserData('a', 'teststr');
+      document.setUserData('c', true);
+      document.setUserData('d', { foo: function() { } } );
+      document.setUserData('e', [ 1, 2, 3, 4 ] );
+      print('('+document.getUserData('a')+') ');
+      return document.getUserData('a') === 'teststr';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getUserData.3' prereq='DOM.Document.getUserData.2'>
+    <js><![CDATA[
+      document.setUserData('a', true);
+      document.setUserData('c', false);
+      document.setUserData('a', document.getUserData('c'));
+      document.setUserData('c', true);
+      print('('+document.getUserData('a')+','+document.getUserData('c')+') ');
+      return (document.getUserData('a') === false) && (document.getUserData('c') === true);
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getUserData.4' prereq='DOM.Document.getUserData.1'>
+    <js><![CDATA[
+      var v = typeof(document.getUserData('++udnefiendUserdAta00xxxxnx--'));
+      print('('+v+') ');
+      return v === 'undefined';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getUserData' prereq='DOM.Document.getUserData.4' />
+
+  <test id='DOM.Document.doctype.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.doctype)+') ');
+      return typeof(document.doctype) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.doctype.2' prereq='DOM.Document.doctype.1'>
+    <js><![CDATA[
+      print('('+document.doctype+') ');
+      return document.doctype === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.doctype.3' prereq='DOM.Document.doctype.2'>
+    <js><![CDATA[
+      document.doctype = 'foo';
+      return document.doctype === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.doctype' prereq='DOM.Document.doctype.3' />
+
+  <test id='DOM.Document.implementation.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.implementation)+') ');
+      return typeof(document.implementation) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.2' prereq='DOM.Document.implementation.1'>
+    <js><![CDATA[
+      print('('+document.implementation+') ');
+      return document.implementation != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.3' prereq='DOM.Document.implementation.2'>
+    <js><![CDATA[
+      document.implementation = 'foo';
+      return document.implementation != 'foo';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.hasFeature.1' prereq='DOM.Document.implementation.3'>
+    <js><![CDATA[
+      print('('+typeof(document.implementation.hasFeature)+') ');
+      return typeof(document.implementation.hasFeature) === 'function';
+    ]]></js>
+  </test>
+
+  <!-- TODO: hasFeature testing -->
+
+  <test id='DOM.Document.implementation.hasFeature' prereq='DOM.Document.implementation.hasFeature.1' />
+
+  <test id='DOM.Document.implementation.createDocumentType.1' prereq='DOM.Document.implementation.3'>
+    <js><![CDATA[
+      print('('+typeof(document.implementation.createDocumentType)+') ');
+      return typeof(document.implementation.createDocumentType) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocumentType.2' prereq='DOM.Document.implementation.createDocumentType.1'>
+    <js><![CDATA[
+      var v = document.implementation.createDocumentType('svg:svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
+      print('('+v+') ');
+      return v != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocumentType.3' prereq='DOM.Document.implementation.createDocumentType.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var v = document.implementation.createDocumentType('svg:svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
+      print('('+typeof(v.nodeType)+') ');
+      return typeof(v.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocumentType.4' prereq='DOM.Document.implementation.createDocumentType.3 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var v = document.implementation.createDocumentType('svg:svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
+      print('('+v.nodeType+') ');
+      return v.nodeType === document.DOCUMENT_TYPE_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocumentType' prereq='DOM.Document.implementation.createDocumentType.4' />
+
+  <test id='DOM.Document.implementation.createDocument.1' prereq='DOM.Document.implementation.3'>
+    <js><![CDATA[
+      print('('+typeof(document.implementation.createDocument)+') ');
+      return typeof(document.implementation.createDocument) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocument.2' prereq='DOM.Document.implementation.createDocument.1'>
+    <js><![CDATA[
+      var dt = document.implementation.createDocumentType('svg:svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', dt);
+      print('('+d+') ');
+      return d != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocument.3' prereq='DOM.Document.implementation.createDocument.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var dt = document.implementation.createDocumentType('svg:svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', dt);
+      print('('+typeof(d.nodeType)+') ');
+      return typeof(d.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocument.4' prereq='DOM.Document.implementation.createDocument.3 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var dt = document.implementation.createDocumentType('svg:svg', '-//W3C//DTD SVG 1.1//EN', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd');
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', dt);
+      print('('+d.nodeType+') ');
+      return d.nodeType === document.DOCUMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.createDocument' prereq='DOM.Document.implementation.createDocument.4' />
+
+  <test id='DOM.Document.implementation.getFeature.1' prereq='DOM.Document.implementation.3'>
+    <js><![CDATA[
+      print('('+typeof(document.implementation.getFeature)+') ');
+      return typeof(document.implementation.getFeature) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.implementation.getFeature.2' prereq='DOM.Document.implementation.getFeature.1'>
+    <js><![CDATA[
+      print('(NOTE: unimplemented) ');
+      return true;
+    ]]></js>
+  </test>
+
+  <!-- TODO: getFeature -->
+
+  <test id='DOM.Document.implementation.getFeature' prereq='DOM.Document.implementation.getFeature.2' />
+
+  <test id='DOM.Document.implementation' prereq='DOM.Document.implementation.3 DOM.Document.implementation.hasFeature DOM.Document.implementation.createDocumentType DOM.Document.implementation.createDocument DOM.Document.implementation.getFeature' />
+
+  <test id='DOM.Document.documentElement.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.documentElement)+') ');
+      return typeof(document.documentElement) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.documentElement.2' prereq='DOM.Document.documentElement.1'>
+    <js><![CDATA[
+      document.documentElement = null;
+      print('('+typeof(document.documentElement)+') ');
+      return typeof(document.documentElement) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.documentElement.3' prereq='DOM.Document.documentElement.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      print('('+typeof(document.documentElement.nodeType)+') ');
+      return typeof(document.documentElement.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.documentElement.4' prereq='DOM.Document.documentElement.3 DOM.Document.nodeType'>
+    <js><![CDATA[
+      print('('+document.documentElement.nodeType+') ');
+      return document.documentElement.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.documentElement' prereq='DOM.Document.documentElement.4' />
+
+  <test id='DOM.Document.createElement.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createElement)+') ');
+      return typeof(document.createElement) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElement.2' prereq='DOM.Document.createElement.1'>
+    <js><![CDATA[
+      var n = document.createElement('img');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElement.3' prereq='DOM.Document.createElement.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createElement('img');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElement.4' prereq='DOM.Document.createElement.3 DOM.Document.nodeType DOM.Document.ELEMENT_NODE'>
+    <js><![CDATA[
+      var n = document.createElement('img');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElement' prereq='DOM.Document.createElement.4' />
+
+  <test id='DOM.Document.createDocumentFragment.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createDocumentFragment)+') ');
+      return typeof(document.createDocumentFragment) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createDocumentFragment.2' prereq='DOM.Document.createDocumentFragment.1'>
+    <js><![CDATA[
+      var n = document.createDocumentFragment();
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createDocumentFragment.3' prereq='DOM.Document.createDocumentFragment.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createDocumentFragment();
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createDocumentFragment.4' prereq='DOM.Document.createDocumentFragment.3 DOM.Document.nodeType DOM.Document.DOCUMENT_FRAGMENT_NODE'>
+    <js><![CDATA[
+      var n = document.createDocumentFragment();
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.DOCUMENT_FRAGMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createDocumentFragment' prereq='DOM.Document.createDocumentFragment.4' />
+
+  <test id='DOM.Document.createTextNode.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createTextNode)+') ');
+      return typeof(document.createTextNode) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createTextNode.2' prereq='DOM.Document.createTextNode.1'>
+    <js><![CDATA[
+      var n = document.createTextNode('text');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createTextNode.3' prereq='DOM.Document.createTextNode.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createTextNode('text');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createTextNode.4' prereq='DOM.Document.createTextNode.3 DOM.Document.nodeType DOM.Document.TEXT_NODE'>
+    <js><![CDATA[
+      var n = document.createTextNode('text');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.TEXT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createTextNode' prereq='DOM.Document.createTextNode.4' />
+
+  <test id='DOM.Document.createComment.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createComment)+') ');
+      return typeof(document.createComment) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createComment.2' prereq='DOM.Document.createComment.1'>
+    <js><![CDATA[
+      var n = document.createComment('a comment');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createComment.3' prereq='DOM.Document.createComment.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createComment('a comment');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createComment.4' prereq='DOM.Document.createComment.3 DOM.Document.nodeType DOM.Document.COMMENT_NODE'>
+    <js><![CDATA[
+      var n = document.createComment('a comment');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.COMMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createComment' prereq='DOM.Document.createComment.4' />
+
+  <test id='DOM.Document.createCDATASection.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createCDATASection)+') ');
+      return typeof(document.createCDATASection) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createCDATASection.2' prereq='DOM.Document.createCDATASection.1'>
+    <js><![CDATA[
+      var n = document.createCDATASection('character data');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createCDATASection.3' prereq='DOM.Document.createCDATASection.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createCDATASection('character data');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createCDATASection.4' prereq='DOM.Document.createCDATASection.3 DOM.Document.nodeType DOM.Document.CDATA_SECTION_NODE'>
+    <js><![CDATA[
+      var n = document.createCDATASection('character data');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.CDATA_SECTION_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createCDATASection' prereq='DOM.Document.createCDATASection.4' />
+
+  <test id='DOM.Document.createProcessingInstruction.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createProcessingInstruction)+') ');
+      return typeof(document.createProcessingInstruction) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createProcessingInstruction.2' prereq='DOM.Document.createProcessingInstruction.1'>
+    <js><![CDATA[
+      var n = document.createProcessingInstruction('xxx', 'yyy');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createProcessingInstruction.3' prereq='DOM.Document.createProcessingInstruction.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createProcessingInstruction('xxx', 'yyy');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createProcessingInstruction.4' prereq='DOM.Document.createProcessingInstruction.3 DOM.Document.nodeType DOM.Document.PROCESSING_INSTRUCTION_NODE'>
+    <js><![CDATA[
+      var n = document.createProcessingInstruction('xxx', 'yyy');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.PROCESSING_INSTRUCTION_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createProcessingInstruction' prereq='DOM.Document.createProcessingInstruction.4' />
+
+  <test id='DOM.Document.createAttribute.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createAttribute)+') ');
+      return typeof(document.createAttribute) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttribute.2' prereq='DOM.Document.createAttribute.1'>
+    <js><![CDATA[
+      var n = document.createAttribute('href');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttribute.3' prereq='DOM.Document.createAttribute.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createAttribute('href');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttribute.4' prereq='DOM.Document.createAttribute.3 DOM.Document.nodeType DOM.Document.ATTRIBUTE_NODE'>
+    <js><![CDATA[
+      var n = document.createAttribute('href');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.ATTRIBUTE_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttribute' prereq='DOM.Document.createAttribute.4' />
+
+  <test id='DOM.Document.createEntityReference.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createEntityReference)+') ');
+      return typeof(document.createEntityReference) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createEntityReference.2' prereq='DOM.Document.createEntityReference.1'>
+    <js><![CDATA[
+      var n = document.createEntityReference('nbsp');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createEntityReference.3' prereq='DOM.Document.createEntityReference.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createEntityReference('nbsp');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createEntityReference.4' prereq='DOM.Document.createEntityReference.3 DOM.Document.nodeType DOM.Document.ENTITY_REFERENCE_NODE'>
+    <js><![CDATA[
+      var n = document.createEntityReference('nbsp');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.ENTITY_REFERENCE_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createEntityReference' prereq='DOM.Document.createEntityReference.4' />
+
+  <test id='DOM.Document.getElementsByTagName.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.getElementsByTagName)+') ');
+      return typeof(document.getElementsByTagName) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagName.2' prereq='DOM.Document.getElementsByTagName.1'>
+    <js><![CDATA[
+      var l = document.getElementsByTagName('html');
+      print('('+typeof(l)+') ');
+      return typeof(l) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagName.3' prereq='DOM.Document.getElementsByTagName.2'>
+    <js><![CDATA[
+      var l = document.getElementsByTagName('html');
+      print('('+typeof(l.length)+') ');
+      return typeof(l.length) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagName.4' prereq='DOM.Document.getElementsByTagName.3'>
+    <js><![CDATA[
+      var l = document.getElementsByTagName('html');
+      print("(<html>:" + l.length + ") ");
+      return l.length === 1;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagName.5' prereq='DOM.Document.getElementsByTagName.4'>
+    <js><![CDATA[
+      var l = document.getElementsByTagName('html');
+      print("(" + typeof(l.item(0)) + ") ");
+      return typeof(l.item(0)) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagName.6' prereq='DOM.Document.getElementsByTagName.5'>
+    <js><![CDATA[
+      var l = document.getElementsByTagName('html');
+      print("(" + typeof(l.item(0).nodeType) + ") ");
+      return typeof(l.item(0).nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagName.7' prereq='DOM.Document.getElementsByTagName.6'>
+    <js><![CDATA[
+      var l = document.getElementsByTagName('html');
+      print("(" + typeof(l.item(0).nodeType) + ") ");
+      return l.item(0).nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagName' prereq='DOM.Document.getElementsByTagName.7' />
+
+  <test id='DOM.Document.importNode.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.getElementsByTagName)+') ');
+      return typeof(document.getElementsByTagName) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.importNode.2' prereq='DOM.Document.importNode.1 DOM.Document.implementation.createDocument DOM.Document.createElement'>
+    <js><![CDATA[
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', null);
+      var e = d.createElement('g');
+      var ei = document.importNode(e, true);
+      print('('+typeof(ei)+') ');
+      return typeof(ei) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.importNode.3' prereq='DOM.Document.importNode.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', null);
+      var e = d.createElement('g');
+      var ei = document.importNode(e, true);
+      print('('+typeof(ei.nodeType)+') ');
+      return typeof(ei.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.importNode.4' prereq='DOM.Document.importNode.3'>
+    <js><![CDATA[
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', null);
+      var e = d.createElement('g');
+      var ei = document.importNode(e, true);
+      print('('+ei.nodeType+') ');
+      return ei.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.importNode.5' prereq='DOM.Document.importNode.4 DOM.Document.ownerDocument DOM.Document.isSameNode'>
+    <js><![CDATA[
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', null);
+      var e = d.createElement('g');
+      var ei = document.importNode(e, true);
+      print('('+ei.ownerDocument.isSameNode(document)+') ');
+      return ei.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.importNode' prereq='DOM.Document.importNode.5' />
+
+  <test id='DOM.Document.createElementNS.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createElementNS)+') ');
+      return typeof(document.createElementNS) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElementNS.2' prereq='DOM.Document.createElementNS.1'>
+    <js><![CDATA[
+      var n = document.createElementNS('http://www.w3.org/2000/svg', 'svg:svg');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElementNS.3' prereq='DOM.Document.createElementNS.2  DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createElementNS('http://www.w3.org/2000/svg', 'svg:svg');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElementNS.4' prereq='DOM.Document.createElementNS.3 DOM.Document.nodeType DOM.Document.ELEMENT_NODE'>
+    <js><![CDATA[
+      var n = document.createElementNS('http://www.w3.org/2000/svg', 'svg:svg');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createElementNS' prereq='DOM.Document.createElementNS.4' />
+
+  <test id='DOM.Document.createAttributeNS.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.createAttributeNS)+') ');
+      return typeof(document.createAttributeNS) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttributeNS.2' prereq='DOM.Document.createAttributeNS.1'>
+    <js><![CDATA[
+      var n = document.createAttributeNS('http://www.w3.org/2000/svg', 'svg:path');
+      print('('+n+') ');
+      return n != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttributeNS.3' prereq='DOM.Document.createAttributeNS.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var n = document.createAttributeNS('http://www.w3.org/2000/svg', 'svg:path');
+      print('('+typeof(n.nodeType)+') ');
+      return typeof(n.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttributeNS.4' prereq='DOM.Document.createAttributeNS.3 DOM.Document.nodeType DOM.Document.ATTRIBUTE_NODE'>
+    <js><![CDATA[
+      var n = document.createAttributeNS('http://www.w3.org/2000/svg', 'svg:path');
+      print('('+n.nodeType+') ');
+      return n.nodeType === document.ATTRIBUTE_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttributeNS' prereq='DOM.Document.createAttributeNS.4' />
+
+  <test id='DOM.Document.getElementsByTagNameNS.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.getElementsByTagNameNS)+') ');
+      return typeof(document.getElementsByTagNameNS) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagNameNS.2' prereq='DOM.Document.getElementsByTagNameNS.1'>
+    <js><![CDATA[
+      var l = document.getElementsByTagNameNS('http://testnamespaced.com/testnamespace/1.0', 'div');
+      print('('+typeof(l)+') ');
+      return typeof(l) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagNameNS.3' prereq='DOM.Document.getElementsByTagNameNS.2'>
+    <js><![CDATA[
+      var l = document.getElementsByTagNameNS('http://testnamespaced.com/testnamespace/1.0', 'div');
+      print('('+typeof(l.length)+') ');
+      return typeof(l.length) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagNameNS.4' prereq='DOM.Document.getElementsByTagNameNS.3'>
+    <js><![CDATA[
+      var l = document.getElementsByTagNameNS('http://testnamespaced.com/testnamespace/1.0', 'div');
+      print("(<s:div>:" + l.length + ") ");
+      return l.length === 1;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagNameNS.5' prereq='DOM.Document.getElementsByTagNameNS.4'>
+    <js><![CDATA[
+      var l = document.getElementsByTagNameNS('http://testnamespaced.com/testnamespace/1.0', 'div');
+      print("(" + typeof(l.item(0)) + ") ");
+      return typeof(l.item(0)) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagNameNS.6' prereq='DOM.Document.getElementsByTagNameNS.5 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var l = document.getElementsByTagNameNS('http://testnamespaced.com/testnamespace/1.0', 'div');
+      print("(" + typeof(l.item(0).nodeType) + ") ");
+      return typeof(l.item(0).nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagNameNS.7' prereq='DOM.Document.getElementsByTagNameNS.6 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var l = document.getElementsByTagNameNS('http://testnamespaced.com/testnamespace/1.0', 'div');
+      print("(" + l.item(0).nodeType + ") ");
+      return l.item(0).nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementsByTagNameNS' prereq='DOM.Document.getElementsByTagNameNS.7' />
+
+  <test id='DOM.Document.getElementById.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.getElementById)+') ');
+      return typeof(document.getElementById) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementById.2' prereq='DOM.Document.getElementById.1'>
+    <js><![CDATA[
+      var l = document.getElementById('testdiv');
+      print('('+typeof(l)+') ');
+      return typeof(l) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementById.3' prereq='DOM.Document.getElementById.2'>
+    <js><![CDATA[
+      var l = document.getElementById('testdiv');
+      print('('+typeof(l.nodeType)+') ');
+      return typeof(l.nodeType) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementById.4' prereq='DOM.Document.getElementById.3'>
+    <js><![CDATA[
+      var l = document.getElementById('testdiv');
+      print('('+l.nodeType+') ');
+      return l.nodeType === document.ELEMENT_NODE;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.getElementById' prereq='DOM.Document.getElementById.4' />
+
+  <test id='DOM.Document.inputEncoding.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.inputEncoding)+') ');
+      return typeof(document.inputEncoding) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.inputEncoding.2' prereq='DOM.Document.inputEncoding.1'>
+    <js><![CDATA[
+      print('('+document.inputEncoding+') ');
+      return document.inputEncoding === 'UTF-8';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.inputEncoding.3' prereq='DOM.Document.inputEncoding.2'>
+    <js><![CDATA[
+      document.inputEncoding = '++incorrect--';
+      print('('+document.inputEncoding+') ');
+      return document.inputEncoding === 'UTF-8';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.inputEncoding' prereq='DOM.Document.inputEncoding.3' />
+
+  <test id='DOM.Document.xmlEncoding.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.xmlEncoding)+') ');
+      return typeof(document.xmlEncoding) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlEncoding.2' prereq='DOM.Document.xmlEncoding.1'>
+    <js><![CDATA[
+      print('('+document.xmlEncoding+') ');
+      return document.xmlEncoding === '';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlEncoding.3' prereq='DOM.Document.xmlEncoding.2'>
+    <js><![CDATA[
+      document.xmlEncoding = '++incorrect--';
+      print('('+document.xmlEncoding+') ');
+      return document.xmlEncoding === '';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlEncoding' prereq='DOM.Document.xmlEncoding.3' />
+
+  <test id='DOM.Document.xmlStandalone.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.xmlStandalone)+') ');
+      return typeof(document.xmlStandalone) === 'boolean';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlStandalone.2' prereq='DOM.Document.xmlStandalone.1'>
+    <js><![CDATA[
+      print('('+document.xmlStandalone+') ');
+      return document.xmlStandalone === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlStandalone.3' prereq='DOM.Document.xmlStandalone.2'>
+    <js><![CDATA[
+      document.xmlStandalone = true;
+      print('('+document.xmlStandalone+') ');
+      return document.xmlStandalone === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlStandalone' prereq='DOM.Document.xmlStandalone.3' />
+
+  <test id='DOM.Document.xmlVersion.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.xmlVersion)+') ');
+      return typeof(document.xmlVersion) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlVersion.2' prereq='DOM.Document.xmlVersion.1'>
+    <js><![CDATA[
+      print('(1.0='+document.xmlVersion+') ');
+      return document.xmlVersion === '1.0';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlVersion.3' prereq='DOM.Document.xmlVersion.2'>
+    <js><![CDATA[
+      document.xmlVersion = '1.0';
+      print('(1.0='+document.xmlVersion+') ');
+      return document.xmlVersion === '1.0';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlVersion.4' prereq='DOM.Document.xmlVersion.3'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.xmlVersion = 'xxx'; }
+      catch (ex) { okay = true; }
+      print('(xxx!='+document.xmlVersion+') ');
+      return okay && (document.xmlVersion === '1.0');
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.xmlVersion' prereq='DOM.Document.xmlVersion.4' />
+
+  <test id='DOM.Document.strictErrorChecking.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.strictErrorChecking)+') ');
+      return typeof(document.strictErrorChecking) === 'boolean';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.strictErrorChecking.2' prereq='DOM.Document.strictErrorChecking.1'>
+    <js><![CDATA[
+      print('('+document.strictErrorChecking+') ');
+      return document.strictErrorChecking === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.strictErrorChecking.3' prereq='DOM.Document.strictErrorChecking.2'>
+    <js><![CDATA[
+      document.strictErrorChecking = false;
+      print('('+document.strictErrorChecking+') ');
+      return document.strictErrorChecking === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.strictErrorChecking' prereq='DOM.Document.strictErrorChecking.3' />
+
+  <test id='DOM.Document.documentURI.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.documentURI)+') ');
+      return typeof(document.documentURI) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.documentURI.2' prereq='DOM.Document.documentURI.1'>
+    <js><![CDATA[
+      print('('+document.documentURI.substring(0, 15)+'...) ');
+      return document.documentURI != '';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.documentURI.3' prereq='DOM.Document.documentURI.2'>
+    <js><![CDATA[
+      document.documentURI = 'file:///new';
+      print('('+document.documentURI.substring(0, 15)+'...) ');
+      return document.documentURI === 'file:///new';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.documentURI' prereq='DOM.Document.documentURI.3' />
+
+  <test id='DOM.Document.adoptNode.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.getElementsByTagName)+') ');
+      return typeof(document.getElementsByTagName) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.adoptNode.2' prereq='DOM.Document.adoptNode.1 DOM.Document.implementation.createDocument DOM.Document.createElement'>
+    <js><![CDATA[
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', null);
+      var e = d.createElement('g');
+      var ei = document.adoptNode(e);
+      print('('+typeof(ei)+') ');
+      return typeof(ei) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.adoptNode.3' prereq='DOM.Document.adoptNode.2 DOM.Document.nodeType'>
+    <js><![CDATA[
+      var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', null);
+      var e = d.createElement('g');
+      var ei = document.adoptNode(e);
+      print('('+ei+') ');
+      return ei === null;
+    ]]></js>
+  </test>
+
+  <!-- TODO: why is the above document test returning null? According to spec
+       it's okay though, apps are supposed to fall back on importNode. -->
+
+  <test id='DOM.Document.adoptNode' prereq='DOM.Document.adoptNode.3' />
+
+  <test id='DOM.Document.domConfig.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig)+') ');
+      return typeof(document.domConfig) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.1' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig.setParameter)+') ');
+      return typeof(document.domConfig.setParameter) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.canonical-form' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('canonical-form', true); }
+      catch (ex) { okay = true; }
+      var v = document.domConfig.getParameter('canonical-form');
+      print('(unsupported in xerces) ');
+      return okay && (v === false);
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.cdata-sections' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      document.domConfig.setParameter('cdata-sections', false);
+      var v = document.domConfig.getParameter('cdata-sections');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.check-character-normalization' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('check-character-normalization', true); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.comments' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      document.domConfig.setParameter('comments', false);
+      var v = document.domConfig.getParameter('comments');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.datatype-normalization' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('datatype-normalization', true); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.element-content-whitespace' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('element-content-whitespace', false); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.entities' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      document.domConfig.setParameter('entities', true);
+      var v = document.domConfig.getParameter('entities');
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.error-handler' prereq='DOM.Document.domConfig.1 DOM.Document.implementation.createDocument DOM.Document.createElement DOM.Document.documentElement'>
+    <js><![CDATA[
+      print("\na\n");
+      document.domConfig.setParameter('error-handler', function(e) {
+        print("caught error: " + e + "\n");
+      });
+      // NOTE: to test this we need to be able to set the error handler before
+      // parsing. The test system currently runs tests after parsing, so we
+      // need a way to actually trigger the parsing (load save API?) to really
+      // test this.
+      print('(unimplemented) ');
+      return true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.infoset' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('infoset', true); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.namespaces' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      document.domConfig.setParameter('namespaces', false);
+      var v = document.domConfig.getParameter('namespaces');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.namespace-declarations' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('namespace-declarations', false); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.normalize-characters' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('normalize-characters', true); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.schema-location' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('schema-location', 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.schema-type' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('schema-type', 'http://www.w3.org/TR/REC-xml'); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.split-cdata-sections' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('split-cdata-sections', false); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.validate' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('validate', true); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.validate-if-schema' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { document.domConfig.setParameter('validate-if-schema', true); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter.well-formed' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { var v = document.domConfig.setParameter('well-formed'); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.setParameter' prereq='DOM.Document.domConfig.1 DOM.Document.domConfig.setParameter.canonical-form DOM.Document.domConfig.setParameter.cdata-sections DOM.Document.domConfig.setParameter.check-character-normalization DOM.Document.domConfig.setParameter.comments DOM.Document.domConfig.setParameter.datatype-normalization DOM.Document.domConfig.setParameter.element-content-whitespace DOM.Document.domConfig.setParameter.entities DOM.Document.domConfig.setParameter.error-handler DOM.Document.domConfig.setParameter.infoset DOM.Document.domConfig.setParameter.namespaces DOM.Document.domConfig.setParameter.namespace-declarations DOM.Document.domConfig.setParameter.normalize-characters DOM.Document.domConfig.setParameter.schema-location DOM.Document.domConfig.setParameter.schema-type DOM.Document.domConfig.setParameter.split-cdata-sections DOM.Document.domConfig.setParameter.validate DOM.Document.domConfig.setParameter.validate-if-schema DOM.Document.domConfig.setParameter.well-formed' />
+
+  <test id='DOM.Document.domConfig.getParameter.1' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig.getParameter)+') ');
+      return typeof(document.domConfig.getParameter) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.canonical-form' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('canonical-form');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.cdata-sections' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('cdata-sections');
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.check-character-normalization' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { var v = document.domConfig.getParameter('check-character-normalization'); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.comments' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('comments');
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.datatype-normalization' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('datatype-normalization');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.element-content-whitespace' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('element-content-whitespace');
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.entities' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('entities');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.error-handler' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('error-handler');
+      print('('+v+') ');
+      return v === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.infoset' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('infoset');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.namespaces' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('namespaces');
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.namespace-declarations' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('namespace-declarations');
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.normalize-characters' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('normalize-characters');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.schema-location' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('schema-location');
+      print('('+v+') ');
+      return v === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.schema-type' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('schema-type');
+      print('('+v+') ');
+      return v === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.split-cdata-sections' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('split-cdata-sections');
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.validate' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('validate');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.validate-if-schema' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var v = document.domConfig.getParameter('validate-if-schema');
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter.well-formed' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      var okay = false;
+      try { var v = document.domConfig.getParameter('well-formed'); }
+      catch (ex) { okay = true; }
+      print('(unimplemented in xerces) ');
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.getParameter' prereq='DOM.Document.domConfig.1 DOM.Document.domConfig.getParameter.canonical-form DOM.Document.domConfig.getParameter.cdata-sections DOM.Document.domConfig.getParameter.check-character-normalization DOM.Document.domConfig.getParameter.comments DOM.Document.domConfig.getParameter.datatype-normalization DOM.Document.domConfig.getParameter.element-content-whitespace DOM.Document.domConfig.getParameter.entities DOM.Document.domConfig.getParameter.error-handler DOM.Document.domConfig.getParameter.infoset DOM.Document.domConfig.getParameter.namespaces DOM.Document.domConfig.getParameter.namespace-declarations DOM.Document.domConfig.getParameter.normalize-characters DOM.Document.domConfig.getParameter.schema-location DOM.Document.domConfig.getParameter.schema-type DOM.Document.domConfig.getParameter.split-cdata-sections DOM.Document.domConfig.getParameter.validate DOM.Document.domConfig.getParameter.validate-if-schema DOM.Document.domConfig.getParameter.well-formed' />
+
+  <test id='DOM.Document.domConfig.canSetParameter.1' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig.canSetParameter)+') ');
+      return typeof(document.domConfig.canSetParameter) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.canSetParameter.2' prereq='DOM.Document.domConfig.canSetParameter.1'>
+    <js><![CDATA[
+      var v = document.domConfig.canSetParameter('namespaces', false);
+      print('('+v+') ');
+      return v === true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.canSetParameter.3' prereq='DOM.Document.domConfig.canSetParameter.2'>
+    <js><![CDATA[
+      var v = document.domConfig.canSetParameter('validate', true);
+      print('('+v+') ');
+      return v === false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.canSetParameter' prereq='DOM.Document.domConfig.canSetParameter.3' />
+
+  <test id='DOM.Document.domConfig.parameterNames.1' prereq='DOM.Document.domConfig.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig.parameterNames)+') ');
+      return typeof(document.domConfig.parameterNames) === 'object';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.item.1' prereq='DOM.Document.domConfig.parameterNames.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig.parameterNames.item)+') ');
+      return typeof(document.domConfig.parameterNames.item) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.item.2' prereq='DOM.Document.domConfig.parameterNames.1'>
+    <js><![CDATA[
+      var v = document.domConfig.parameterNames.item(0);
+      print('('+v+') ');
+      return typeof(v) === 'string';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.item' prereq='DOM.Document.domConfig.parameterNames.item.2' />
+
+  <test id='DOM.Document.domConfig.parameterNames.length.1' prereq='DOM.Document.domConfig.parameterNames.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig.parameterNames.length)+') ');
+      return typeof(document.domConfig.parameterNames.length) === 'number';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.length.2' prereq='DOM.Document.domConfig.parameterNames.1'>
+    <js><![CDATA[
+      var v = document.domConfig.parameterNames.length;
+      print('('+v+') ');
+      return v > 0;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.length' prereq='DOM.Document.domConfig.parameterNames.length.2' />
+
+  <test id='DOM.Document.domConfig.parameterNames.contains.1' prereq='DOM.Document.domConfig.parameterNames.1'>
+    <js><![CDATA[
+      print('('+typeof(document.domConfig.parameterNames.contains)+') ');
+      return typeof(document.domConfig.parameterNames.contains) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.contains.2' prereq='DOM.Document.domConfig.parameterNames.1'>
+    <js><![CDATA[
+      var v = document.domConfig.parameterNames.contains('validate');
+      print('('+typeof(v)+') ');
+      return typeof(v) === 'boolean';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.contains.3' prereq='DOM.Document.domConfig.parameterNames.1'>
+    <js><![CDATA[
+      var v = document.domConfig.parameterNames.contains('validate');
+      print('('+v+') ');
+      return v;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.domConfig.parameterNames.contains' prereq='DOM.Document.domConfig.parameterNames.contains.3' />
+
+  <test id='DOM.Document.domConfig.parameterNames' prereq='DOM.Document.domConfig.parameterNames.1 DOM.Document.domConfig.parameterNames.item DOM.Document.domConfig.parameterNames.length DOM.Document.domConfig.parameterNames.contains' />
+
+  <test id='DOM.Document.domConfig' prereq='DOM.Document.domConfig.1 DOM.Document.domConfig.setParameter DOM.Document.domConfig.setParameter DOM.Document.domConfig.getParameter DOM.Document.domConfig.canSetParameter DOM.Document.domConfig.parameterNames' />
+
+  <test id='DOM.Document.normalizeDocument.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.normalizeDocument)+') ');
+      return typeof(document.normalizeDocument) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.normalizeDocument.2' prereq='DOM.Document.normalizeDocument.1'>
+    <js><![CDATA[
+      document.normalizeDocument();
+      print('(invoked) ');
+      return true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.normalizeDocument' prereq='DOM.Document.normalizeDocument.2' />
+
+  <test id='DOM.Document.renameNode.1' prereq='DOM.Document.1'>
+    <js><![CDATA[
+      print('('+typeof(document.renameNode)+') ');
+      return typeof(document.renameNode) === 'function';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.renameNode.2' prereq='DOM.Document.renameNode.1'>
+    <js><![CDATA[
+      document.renameNode(document.documentElement, null, 'foo');
+      print('('+document.documentElement.nodeName+') ');
+      return document.documentElement.nodeName == 'foo';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.renameNode.3' prereq='DOM.Document.renameNode.2'>
+    <js><![CDATA[
+      document.renameNode(document.documentElement, 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd', 'svg:foo');
+      print('('+document.documentElement.nodeName+') ');
+      return document.documentElement.nodeName == 'svg:foo';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.renameNode' prereq='DOM.Document.renameNode.3' />
+
+  <test id='DOM.Document' prereq='DOM.Document.1 DOM.Document.NodeType DOM.Document.nodeName DOM.Document.nodeValue DOM.Document.nodeType DOM.Document.parentNode DOM.Document.childNodes DOM.Document.firstChild DOM.Document.lastChild DOM.Document.previousSibling DOM.Document.nextSibling DOM.Document.attributes DOM.Document.ownerDocument DOM.Document.hasChildNodes DOM.Document.normalize DOM.Document.isSupported DOM.Document.namespaceURI DOM.Document.prefix DOM.Document.localName DOM.Document.hasAttributes DOM.Document.baseURI DOM.Document.DocumentPosition DOM.Document.compareDocumentPosition DOM.Document.textContent DOM.Document.isSameNode DOM.Document.lookupPrefix DOM.Document.isDefaultNamespace DOM.Document.lookupNamespaceURI DOM.Document.getFeature DOM.Document.setUserData DOM.Document.getUserData DOM.Document.doctype DOM.Document.implementation DOM.Document.documentElement DOM.Document.createElement DOM.Document.createDocumentFragment DOM.Document.createTextNode DOM.Document.createComment DOM.Document.createCDATASection DOM.Document.createProcessingInstruction DOM.Document.createAttribute DOM.Document.createEntityReference DOM.Document.getElementsByTagName DOM.Document.importNode DOM.Document.createElementNS DOM.Document.createAttributeNS DOM.Document.getElementsByTagNameNS DOM.Document.getElementById DOM.Document.inputEncoding DOM.Document.xmlEncoding DOM.Document.xmlStandalone DOM.Document.xmlVersion DOM.Document.strictErrorChecking DOM.Document.documentURI DOM.Document.adoptNode DOM.Document.domConfig DOM.Document.normalizeDocument DOM.Document.renameNode' />
+
+  <test id='DOM.Element.1' prereq='DOM.Document.documentElement DOM.Document.createElement' />
+  
+  <test id='DOM.Element.nodeName' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      print('('+e.nodeName+') ');
+      return e.nodeName === 'div';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.nodeName.readonly' prereq='DOM.Element.nodeName'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      e.nodeName = 'notdiv';
+      print('('+e.nodeName+') ');
+      return e.nodeName === 'div';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.nodeValue' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      print('('+e.nodeValue+') ');
+      return e.nodeValue === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.nodeValue.readonly' prereq='DOM.Element.nodeValue'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var ok = false;
+      try {
+        e.nodeValue = 'foo';
+      }
+      catch(e) {
+        ok = true;
+      }
+      print('('+e.nodeValue+') ');
+      return e.nodeValue === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.tagName' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      print('('+e.tagName+') ');
+      return e.tagName === 'div';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.tagName.readonly' prereq='DOM.Element.tagName'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      e.tagName = '+++notrightnameertw23';
+      print('('+e.tagName+') ');
+      return e.tagName === 'div';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.getAttribute' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var v = e.getAttribute('class');
+      print('('+v+') ');
+      return v === 'testdivclass';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.setAttribute' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      e.setAttribute('foo', 'testval');
+      var v = e.getAttribute('foo');
+      print('('+v+') ');
+      return v === 'testval';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.removeAttribute' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      e.removeAttribute('class');
+      var v = e.getAttribute('class');
+      return v === '';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.getAttributeNode' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var a = e.getAttributeNode('class');
+      print('(' + a.nodeName + ',' + a.nodeValue + ') ');
+      return (a.nodeName === 'class') && (a.nodeValue === 'testdivclass');
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.setAttributeNode' prereq='DOM.Element.1 DOM.Document.createAttribute'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var attr = document.createAttribute('testattr');
+      attr.nodeValue = 'testval';
+      e.setAttributeNode(attr);
+      var test = e.getAttribute('testattr');
+      print('('+test+') ');
+      return test === 'testval';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.removeAttributeNode' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var a = e.getAttributeNode('class');
+      e.removeAttributeNode(a);
+      var v = e.getAttribute('class');
+      return v === '';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.getElementsByTagName' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var l = e.getElementsByTagName('em');
+      print("(<em>:" + l.length + ") ");
+      return l.length === 2; // TODO: && l.item(0).firstChild.nodeValue === 'is';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.getAttributeNS' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      var v = e.getAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foo');
+      print('('+v+') ');
+      return v === 'bar';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.setAttributeNS' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      e.setAttributeNS('http://testnamespaced.com/testnamespace/1.0', 's:foo', 'testval');
+      var v = e.getAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foo');
+      print('('+v+') ');
+      return v === 'testval';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.removeAttributeNS' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      e.removeAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foo');
+      var v = e.getAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foo');
+      return v === '';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.getAttributeNodeNS' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      var a = e.getAttributeNodeNS('http://testnamespaced.com/testnamespace/1.0', 'foo');
+      print('(' + a.nodeName + '=' + a.nodeValue + ') ');
+      return (a.nodeName === 's:foo') && (a.nodeValue === 'bar');
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.setAttributeNodeNS' prereq='DOM.Element.1 DOM.Document.createAttributeNS'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      var attr = document.createAttributeNS('http://testnamespaced.com/testnamespace/1.0' ,'s:testattr');
+      attr.nodeValue = 'testval';
+      e.setAttributeNodeNS(attr);
+      var test = e.getAttributeNS('http://testnamespaced.com/testnamespace/1.0' ,'testattr');
+      print('('+test+') ');
+      return test === 'testval';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.getElementsByTagNameNS' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('body');
+      var l = e.getElementsByTagNameNS('http://testnamespaced.com/testnamespace/1.0', 'div');
+      print("(<s:div>:" + l.length + ") ");
+      return l.length === 1; // TODO: check item(0) is as expected
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.hasAttribute.1' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var v = e.hasAttribute('class');
+      print('(class='+(v ? e.getAttribute('class') : 'class not found') + ') ');
+      return v;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.hasAttribute.2' prereq='DOM.Element.1 DOM.Element.hasAttribute.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var v = !e.hasAttribute('clazz');
+      print('('+(v ? '!clazz' : e.getAttribute('clazz')) + ') ');
+      return v;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.hasAttribute' prereq='DOM.Element.hasAttribute.2' />
+
+  <test id='DOM.Element.hasAttributeNS.1' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      var v = e.hasAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foo');
+      print('(s:foo='+(v ? e.getAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foo') : 'not found')+') ');
+      return v;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.hasAttributeNS.2' prereq='DOM.Element.1 DOM.Element.hasAttributeNS.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      var v = !e.hasAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foox');
+      print('('+(v ? '!foox' : e.getAttribute('foox')) + ') ');
+      return v;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.hasAttributeNS' prereq='DOM.Element.hasAttributeNS.2' />
+
+  <test id='DOM.Element.schemaTypeInfo' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      return (e.schemaTypeInfo.typeName === null) && (e.schemaTypeInfo.typeNamespace === null); // TODO real schema testing
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.schemaTypeInfo.readonly' prereq='DOM.Element.1'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      e.schemaTypeInfo = null;
+      return (e.schemaTypeInfo.typeName === null) && (e.schemaTypeInfo.typeNamespace === null); // TODO real schema testing
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.setIdAttribute' prereq='DOM.Element.1 DOM.Element.getAttribute'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      e.setIdAttribute('class', true);
+      var test = document.getElementById('testdivclass');
+      var testid = test.getAttribute('id');
+      print('(' + testid + ') ');
+      return testid === 'testdiv'; // TODO: e.isSameNode(test)
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.setIdAttributeNS' prereq='DOM.Element.1 DOM.Element.getAttribute'>
+    <js><![CDATA[
+      var e = document.getElementById('testnamespaced');
+      e.setIdAttributeNS('http://testnamespaced.com/testnamespace/1.0', 'foo', true);
+      var test = document.getElementById('bar');
+      var testid = test.getAttribute('id');
+      print('(' + testid + ') ');
+      return testid === 'testnamespaced'; // TODO: e.isSameNode(test)
+    ]]></js>
+  </test>
+
+  <test id='DOM.Element.setIdAttributeNode' prereq='DOM.Element.1 DOM.Element.getAttributeNode'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      e.setIdAttributeNode(e.getAttributeNode('class'), true);
+      var test = document.getElementById('testdivclass');
+      var testid = test.getAttribute('id');
+      print('(' + testid + ') ');
+      return testid === 'testdiv'; // TODO: e.isSameNode(test)
+    ]]></js>
+  </test>
+
+  
+  <!--
+  <test id='DOM.Attr.nodeName' prereq='DOM.Element'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var a = e.getAttributeNode('class');
+      print('('+a.nodeName+') ');
+      return a.nodeName === 'class';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Attr.nodeName.readonly' prereq='DOM.Attr.nodeName'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      var a = e.getAttributeNode('class');
+      a.nodeName = 'notclass';
+      print('('+a.nodeName+') ');
+      return a.nodeName === 'class';
+    ]]></js>
+  </test>
+
+  <test id='DOM.CDATASection.nodeName' prereq='DOM.CDATASection'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.CDATASection.nodeName.readonly' prereq='DOM.CDATASection.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.EntityReference.nodeName' prereq='DOM.EntityReference'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.EntityReference.nodeName.readonly' prereq='DOM.EntityReference.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Entity.nodeName' prereq='DOM.Entity'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Entity.nodeName.readonly' prereq='DOM.Entity.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.ProcessingInstruction.nodeName' prereq='DOM.ProcessingInstruction'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.ProcessingInstruction.nodeName.readonly' prereq='DOM.ProcessingInstruction.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Comment.nodeName' prereq='DOM.Comment'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Comment.nodeName.readonly' prereq='DOM.Comment.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentType.nodeName' prereq='DOM.DocumentType'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentType.nodeName.readonly' prereq='DOM.DocumentType.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentFragment.nodeName' prereq='DOM.DocumentFragment'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentFragment.nodeName.readonly' prereq='DOM.DocumentFragment.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Notation.nodeName' prereq='DOM.Notation'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Notation.nodeName.readonly' prereq='DOM.Notation.nodeName'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Attr.nodeValue' prereq='DOM.Attr'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Attr.nodeValue.write' prereq='DOM.Attr.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.CDATASection.nodeValue' prereq='DOM.CDATASection'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.CDATASection.nodeValue.write' prereq='DOM.CDATASection.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.EntityReference.nodeValue' prereq='DOM.EntityReference'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.EntityReference.nodeValue.readonly' prereq='DOM.EntityReference.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Entity.nodeValue' prereq='DOM.Entity'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Entity.nodeValue.readonly' prereq='DOM.Entity.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.ProcessingInstruction.nodeValue' prereq='DOM.ProcessingInstruction'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.ProcessingInstruction.nodeValue.write' prereq='DOM.ProcessingInstruction.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Comment.nodeValue' prereq='DOM.Comment'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Comment.nodeValue.write' prereq='DOM.Comment.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeValue' prereq='DOM.Document'>
+    <js><![CDATA[
+      return (document.nodeValue === null);
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeValue.readonly' prereq='DOM.Document.nodeValue'>
+    <js><![CDATA[
+      var okay = false;
+      try {
+        document.nodeValue = 'not#document##';
+        print(' ("' + document.nodeValue + '" after setting, no exception thrown) ');
+      }
+      catch(e) {
+        okay = true;
+      }
+      return okay;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentType.nodeValue' prereq='DOM.DocumentType'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentType.nodeValue.readonly' prereq='DOM.DocumentType.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentFragment.nodeValue' prereq='DOM.DocumentFragment'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.DocumentFragment.nodeValue.readonly' prereq='DOM.DocumentFragment.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Notation.nodeValue' prereq='DOM.Notation'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Notation.nodeValue.readonly' prereq='DOM.Notation.nodeValue'>
+    <js><![CDATA[
+      print('(unimplemented test) ');
+      return false;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeType' prereq='DOM.Document'>
+    <js><![CDATA[
+      return (typeof(document.nodeType) === 'number') && (document.nodeType === 9);
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.nodeType.readonly' prereq='DOM.Document.nodeType'>
+    <js><![CDATA[
+      return (typeof(document.nodeType) === 'number') && (document.nodeType === 9);
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.parentNode' prereq='DOM.Document'>
+    <js><![CDATA[
+      print('(' + document.parentNode + ') ');
+      return document.parentNode === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.parentNode.readonly' prereq='DOM.Document.parentNode'>
+    <js><![CDATA[
+      document.parentNode = 'NotNull';
+      print('(' + document.parentNode + ') ');
+      return document.parentNode === null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttribute'>
+    <js><![CDATA[
+      var attr = document.createAttribute('testattr');
+      attr.nodeValue = 'testvalue';
+      return attr != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.createAttributeNS'>
+    <js><![CDATA[
+      var attr = document.createAttributeNS('http://testnamespaced.com/testnamespace/1.0', 's:testattr');
+      attr.nodeValue = 'testvalue';
+      return attr != null;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Text.nodeName'>
+    <js><![CDATA[
+      var e = document.getElementById('testtext').firstChild;
+      print('('+e.nodeName+') ');
+      return e.nodeName === '#text';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Text.nodeName.readonly' prereq='DOM.Text.nodeName'>
+    <js><![CDATA[
+      var e = document.getElementById('testtext').firstChild;
+      e.nodeName = 'not correct';
+      print('('+e.nodeName+') ');
+      return e.nodeName === '#text';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Text.nodeValue'>
+    <js><![CDATA[
+      var e = document.getElementById('testtext').firstChild;
+      print('('+e.nodeValue+') ');
+      return e.nodeValue === 'Test text.';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Text.nodeValue.write' prereq='DOM.Text.nodeValue'>
+    <js><![CDATA[
+      var e = document.getElementById('testtext').firstChild;
+      e.nodeValue = 'newvalue';
+      print('('+e.nodeValue+') ');
+      return e.nodeValue === 'newvalue';
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.partition-write' prereq='DOM.Document DOM.Element.setAttribute'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      e.setAttribute('xxx', '__test_partition_element__');
+      return true;
+    ]]></js>
+  </test>
+
+  <test id='DOM.Document.partition-read' prereq='DOM.Document.partition-write DOM.Element.hasAttribute'>
+    <js><![CDATA[
+      var e = document.getElementById('testdiv');
+      return !e.hasAttribute('xxx');
+    ]]></js>
+  </test-->
+
+</tests>

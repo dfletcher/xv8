@@ -1,0 +1,2 @@
+SUBDIRS = @V8_BUILD@ xv8
+DIST_SUBDIRS = v8 xv8
