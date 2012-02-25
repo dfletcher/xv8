@@ -16,6 +16,7 @@ namespace xv8 {
 
     public:
       static Document *load(const char *path);
+      static void *release(Document **doc);
       ~Document(void);
       const char *path;
       xercesc::XercesDOMParser *dom;

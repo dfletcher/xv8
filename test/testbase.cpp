@@ -176,9 +176,7 @@ Test::Test(TestDocument &testdoc, xercesc::DOMElement *e) {
 
 Test::~Test(void) {
   xercesc::XMLString::release(&id);
-  if (doc) {
-    delete doc;
-  }
+  Document::release(&doc);
 }
 
 TestDocument::TestDocument(const char *path) : doc(Document::load(path)) { }

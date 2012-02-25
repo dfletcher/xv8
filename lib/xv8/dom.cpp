@@ -381,15 +381,6 @@ xercesc::DOMNode *_jsUnwrapNodeArg(const Arguments& args, int index, xercesc::DO
   return _jsUnwrapNode(args[index]->ToObject(), type);
 }
 
-XMLCh *_jsUnwrapStringArg(const Arguments& args, int index) {
-  if (args.Length() < index + 1) {
-    ThrowException(Exception::Error(v8::String::New("not enough arguments")));
-    throw ArgumentUnwrapException();
-  }
-  v8::String::AsciiValue stringval(args[index]->ToString());
-  return xercesc::XMLString::transcode(*stringval);
-}
-
 bool _jsUnwrapBooleanArg(const Arguments& args, int index) {
   if (args.Length() < index + 1) {
     ThrowException(Exception::Error(v8::String::New("not enough arguments")));
@@ -453,7 +444,7 @@ Handle<Value> DOMStringList_contains(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMStringList *l = _jsUnwrapDOMStringList(args.Holder());
-    xv8::String str(_jsUnwrapStringArg(args, 0));
+    xv8::String str(args[0]);
     return handle_scope.Close(Boolean::New(l->contains(str)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -493,7 +484,7 @@ Handle<Value> NamedNodeMap_getNamedItem(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNamedNodeMap *nnm = _jsUnwrapNamedNodeMap(args.Holder());
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateNode(nnm->getNamedItem(name)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -522,7 +513,7 @@ Handle<Value> NamedNodeMap_removeNamedItem(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNamedNodeMap *nnm = _jsUnwrapNamedNodeMap(args.Holder());
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateNode(nnm->removeNamedItem(name)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -563,8 +554,8 @@ Handle<Value> NamedNodeMap_getNamedItemNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNamedNodeMap *nnm = _jsUnwrapNamedNodeMap(args.Holder());
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 0));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[0]);
     return handle_scope.Close(_jsCreateNode(nnm->getNamedItemNS(nsuri, localname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -596,8 +587,8 @@ Handle<Value> NamedNodeMap_removeNamedItemNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNamedNodeMap *nnm = _jsUnwrapNamedNodeMap(args.Holder());
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 0));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[0]);
     return handle_scope.Close(_jsCreateNode(nnm->removeNamedItemNS(nsuri, localname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -613,9 +604,9 @@ Handle<Value> DOMImplementation_createDocumentType(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMImplementation *i = _jsUnwrapDOMImplementation(args.Holder());
-    xv8::String qname(_jsUnwrapStringArg(args, 0));
-    xv8::String publicId(_jsUnwrapStringArg(args, 1));
-    xv8::String systemId(_jsUnwrapStringArg(args, 2));
+    xv8::String qname(args[0]);
+    xv8::String publicId(args[1]);
+    xv8::String systemId(args[2]);
     return handle_scope.Close(_jsCreateNode(i->createDocumentType(qname, publicId, systemId)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -631,8 +622,8 @@ Handle<Value> DOMImplementation_createDocument(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMImplementation *i =_jsUnwrapDOMImplementation(args.Holder());
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String qname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String qname(args[1]);
     xercesc::DOMDocumentType *doctype = static_cast<xercesc::DOMDocumentType*>(0);
     if (args[2]->IsObject()) {
       doctype = static_cast<xercesc::DOMDocumentType*>(_jsUnwrapNode(args[2]->ToObject(), xercesc::DOMNode::DOCUMENT_TYPE_NODE));
@@ -652,7 +643,7 @@ Handle<Value> DOMConfiguration_setParameter(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMConfiguration *c = _jsUnwrapDOMConfiguration(args.Holder());
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     #if defined (DOM3) && defined (HAVE_DOMCONFIGURATION_BOOLEAN)
     if (_domIsBooleanParam(name)) {
       c->setParameter(name, _jsUnwrapBooleanArg(args, 1));
@@ -660,7 +651,7 @@ Handle<Value> DOMConfiguration_setParameter(const Arguments& args) {
     else
     #endif
     if (_domIsStringParam(name)) {
-      xv8::String value(_jsUnwrapStringArg(args, 1));
+      xv8::String value(args[1]);
       c->setParameter(name, (const XMLCh*)value);
     }
     else if (_domIsDOMErrorHandlerParam(name)) {
@@ -686,7 +677,7 @@ Handle<Value> DOMConfiguration_getParameter(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMConfiguration *c = _jsUnwrapDOMConfiguration(args.Holder());
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     const void *ptr = c->getParameter(name);
     #if defined (DOM3) && defined (HAVE_DOMCONFIGURATION_BOOLEAN)
     if (_domIsBooleanParam(name)) {
@@ -730,7 +721,7 @@ Handle<Value> DOMConfiguration_canSetParameter(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMConfiguration *c = _jsUnwrapDOMConfiguration(args.Holder());
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     #if defined (DOM3) && defined (HAVE_DOMCONFIGURATION_BOOLEAN)
     if (_domIsBooleanParam(name)) {
       return handle_scope.Close(Boolean::New(c->canSetParameter(name, _jsUnwrapBooleanArg(args, 1))));
@@ -738,7 +729,7 @@ Handle<Value> DOMConfiguration_canSetParameter(const Arguments& args) {
     else
     #endif
     if (_domIsStringParam(name)) {
-      xv8::String value(_jsUnwrapStringArg(args, 1));
+      xv8::String value(args[1]);
       return handle_scope.Close(Boolean::New(c->canSetParameter(name, (const XMLCh*)value)));
     }
     else if (_domIsDOMErrorHandlerParam(name)) {
@@ -1134,8 +1125,8 @@ Handle<Value> Node_isSupported(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNode *node = _jsUnwrapNode(args.Holder());
-    xv8::String feature(_jsUnwrapStringArg(args, 0));
-    xv8::String version(_jsUnwrapStringArg(args, 1));
+    xv8::String feature(args[0]);
+    xv8::String version(args[1]);
     return handle_scope.Close(Boolean::New(node->isSupported(feature, version)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1172,7 +1163,7 @@ void Node_setPrefix(Local<v8::String> property, Local<Value> value, const Access
   HandleScope handle_scope;
   try {
     xercesc::DOMNode *node = _jsUnwrapNode(info.Holder());
-    xv8::String v(value);
+    xv8::String v(value->ToString());
     node->setPrefix(v);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1254,7 +1245,7 @@ void Node_setTextContent(Local<v8::String> property, Local<Value> value, const A
   HandleScope handle_scope;
   try {
     xercesc::DOMNode *node = _jsUnwrapNode(info.Holder());
-    node->setTextContent(xv8::String(value));
+    node->setTextContent(xv8::String(value->ToString()));
   }
   catch (xercesc::DOMException const & ex) {
     ThrowException(Exception::Error(v8::String::New("DOMException getting textContent")));
@@ -1281,7 +1272,7 @@ Handle<Value> Node_lookupPrefix(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNode *node = _jsUnwrapNode(args.Holder());
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
+    xv8::String nsuri(args[0]);
     return handle_scope.Close<Value>(xv8::String(node->lookupPrefix(nsuri)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1294,7 +1285,7 @@ Handle<Value> Node_isDefaultNamespace(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNode *node = _jsUnwrapNode(args.Holder());
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
+    xv8::String nsuri(args[0]);
     return handle_scope.Close(Boolean::New(node->isDefaultNamespace(nsuri)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1307,7 +1298,7 @@ Handle<Value> Node_lookupNamespaceURI(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMNode *node = _jsUnwrapNode(args.Holder());
-    xv8::String prefix(_jsUnwrapStringArg(args, 0));
+    xv8::String prefix(args[0]);
     return handle_scope.Close<Value>(xv8::String(node->lookupNamespaceURI(prefix)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1392,7 +1383,7 @@ Handle<Value> Element_getAttribute(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close<Value>(xv8::String(e->getAttribute(name)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1405,8 +1396,8 @@ Handle<Value> Element_setAttribute(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
-    xv8::String value(_jsUnwrapStringArg(args, 1));
+    xv8::String name(args[0]);
+    xv8::String value(args[1]);
     e->setAttribute(name, value);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1422,7 +1413,7 @@ Handle<Value> Element_removeAttribute(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     e->removeAttribute(name);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1438,7 +1429,7 @@ Handle<Value> Element_getAttributeNode(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateNode(e->getAttributeNode(name)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1483,7 +1474,7 @@ Handle<Value> Element_getElementsByTagName(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateDOMNodeList(e->getElementsByTagName(name)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1496,8 +1487,8 @@ Handle<Value> Element_getAttributeNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
     return handle_scope.Close<Value>(xv8::String(e->getAttributeNS(nsuri, localname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -1513,9 +1504,9 @@ Handle<Value> Element_setAttributeNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
-    xv8::String value(_jsUnwrapStringArg(args, 2));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
+    xv8::String value(args[2]);
     e->setAttributeNS(nsuri, localname, value);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1531,8 +1522,8 @@ Handle<Value> Element_removeAttributeNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
     e->removeAttributeNS(nsuri, localname);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1548,8 +1539,8 @@ Handle<Value> Element_getAttributeNodeNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
     return handle_scope.Close(_jsCreateNode(e->getAttributeNodeNS(nsuri, localname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -1581,8 +1572,8 @@ Handle<Value> Element_getElementsByTagNameNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
     return handle_scope.Close(_jsCreateDOMNodeList(e->getElementsByTagNameNS(nsuri, localname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -1598,7 +1589,7 @@ Handle<Value> Element_hasAttribute(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(Boolean::New(e->hasAttribute(name)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -1611,8 +1602,8 @@ Handle<Value> Element_hasAttributeNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
     return handle_scope.Close(Boolean::New(e->hasAttributeNS(nsuri, localname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -1640,7 +1631,7 @@ Handle<Value> Element_setIdAttribute(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     #if defined (HAVE_DOMELEMENT_SETIDATTRIBUTE_2ARG)
       bool isid = true;
       if (!args[1]->IsUndefined()) {
@@ -1665,8 +1656,8 @@ Handle<Value> Element_setIdAttributeNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMElement *e = static_cast<xercesc::DOMElement*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::ELEMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
     #if defined (HAVE_DOMELEMENT_SETIDATTRIBUTENS_3ARG)
       bool isid = true;
       if (!args[2]->IsUndefined()) {
@@ -1694,7 +1685,7 @@ Handle<Value> Element_setIdAttributeNode(const Arguments& args) {
     xercesc::DOMAttr *attr = static_cast<xercesc::DOMAttr*>(_jsUnwrapNodeArg(args, 0, xercesc::DOMNode::ATTRIBUTE_NODE));
     #if defined (HAVE_DOMELEMENT_SETIDATTRIBUTENODE_2ARG)
       bool isid = true;
-      if (!args[1]->IsUndefined()) {
+      if (!(args[1]->IsUndefined())) {
         isid = _jsUnwrapBooleanArg(args, 1);
       }
       e->setIdAttributeNode(attr, isid);
@@ -1731,7 +1722,7 @@ void CharacterData_setData(Local<v8::String> property, Local<Value> value, const
   HandleScope handle_scope;
   try {
     xercesc::DOMCharacterData *d = _jsUnwrapCharacterDataNode(info.Holder());
-    d->setData(xv8::String(value));
+    d->setData(xv8::String(value->ToString()));
   }
   catch (xercesc::DOMException const & ex) {
     ThrowException(Exception::Error(v8::String::New("exception setting character data")));
@@ -1774,7 +1765,7 @@ Handle<Value> CharacterData_appendData(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMCharacterData *d = _jsUnwrapCharacterDataNode(args.Holder());
-    xv8::String arg(_jsUnwrapStringArg(args, 0));
+    xv8::String arg(args[0]);
     d->appendData(arg);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1791,7 +1782,7 @@ Handle<Value> CharacterData_insertData(const Arguments& args) {
   try {
     xercesc::DOMCharacterData *d = _jsUnwrapCharacterDataNode(args.Holder());
     int offset = _jsUnwrapIntegerArg(args, 0);
-    xv8::String arg(_jsUnwrapStringArg(args, 1));
+    xv8::String arg(args[1]);
     d->insertData(offset, arg);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1826,7 +1817,7 @@ Handle<Value> CharacterData_replaceData(const Arguments& args) {
     xercesc::DOMCharacterData *d = _jsUnwrapCharacterDataNode(args.Holder());
     int offset = _jsUnwrapIntegerArg(args, 0);
     int count = _jsUnwrapIntegerArg(args, 1);
-    xv8::String arg(_jsUnwrapStringArg(args, 2));
+    xv8::String arg(args[2]);
     d->replaceData(offset, count, arg);
   }
   catch (xercesc::DOMException const & ex) {
@@ -1878,7 +1869,7 @@ void Attr_setValue(Local<v8::String> property, Local<Value> value, const Accesso
   HandleScope handle_scope;
   try {
     xercesc::DOMAttr *a = static_cast<xercesc::DOMAttr*>(_jsUnwrapNode(info.Holder(), xercesc::DOMNode::ATTRIBUTE_NODE));
-    a->setValue(xv8::String(value));
+    a->setValue(xv8::String(value->ToString()));
   }
   catch (xercesc::DOMException const & ex) {
     ThrowException(Exception::Error(v8::String::New("exception setting value")));
@@ -1964,7 +1955,7 @@ Handle<Value> Document_createElement(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateNode(doc->createElement(name)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -1992,7 +1983,7 @@ Handle<Value> Document_createTextNode(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String data(_jsUnwrapStringArg(args, 0));
+    xv8::String data(args[0]);
     return handle_scope.Close(_jsCreateNode(doc->createTextNode(data)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -2005,7 +1996,7 @@ Handle<Value> Document_createComment(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String data(_jsUnwrapStringArg(args, 0));
+    xv8::String data(args[0]);
     return handle_scope.Close(_jsCreateNode(doc->createComment(data)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -2018,7 +2009,7 @@ Handle<Value> Document_createCDATASection(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String data(_jsUnwrapStringArg(args, 0));
+    xv8::String data(args[0]);
     return handle_scope.Close(_jsCreateNode(doc->createCDATASection(data)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2034,8 +2025,8 @@ Handle<Value> Document_createProcessingInstruction(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String target(_jsUnwrapStringArg(args, 0));
-    xv8::String data(_jsUnwrapStringArg(args, 1));
+    xv8::String target(args[0]);
+    xv8::String data(args[1]);
     return handle_scope.Close(_jsCreateNode(doc->createProcessingInstruction(target, data)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2051,7 +2042,7 @@ Handle<Value> Document_createAttribute(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateNode(doc->createAttribute(name)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2067,7 +2058,7 @@ Handle<Value> Document_createEntityReference(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateNode(doc->createEntityReference(name)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2083,7 +2074,7 @@ Handle<Value> Document_getElementsByTagName(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String name(_jsUnwrapStringArg(args, 0));
+    xv8::String name(args[0]);
     return handle_scope.Close(_jsCreateDOMNodeList(doc->getElementsByTagName(name)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -2113,8 +2104,8 @@ Handle<Value> Document_createElementNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String qname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String qname(args[1]);
     return handle_scope.Close(_jsCreateNode(doc->createElementNS(nsuri, qname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2130,8 +2121,8 @@ Handle<Value> Document_createAttributeNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String qname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String qname(args[1]);
     return handle_scope.Close(_jsCreateNode(doc->createAttributeNS(nsuri, qname)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2147,8 +2138,8 @@ Handle<Value> Document_getElementsByTagNameNS(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String nsuri(_jsUnwrapStringArg(args, 0));
-    xv8::String localname(_jsUnwrapStringArg(args, 1));
+    xv8::String nsuri(args[0]);
+    xv8::String localname(args[1]);
     return handle_scope.Close(_jsCreateDOMNodeList(doc->getElementsByTagNameNS(nsuri, localname)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -2161,7 +2152,7 @@ Handle<Value> Document_getElementById(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    xv8::String id(_jsUnwrapStringArg(args, 0));
+    xv8::String id(args[0]);
     return handle_scope.Close(_jsCreateNode(doc->getElementById(id)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2239,7 +2230,7 @@ void Document_setXmlVersion(Local<v8::String> property, Local<Value> value, cons
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(info.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    doc->setXmlVersion(xv8::String(value));
+    doc->setXmlVersion(xv8::String(value->ToString()));
   }
   catch (xercesc::DOMException const & ex) {
     ThrowException(Exception::Error(v8::String::New("exception setting xmlVersion")));
@@ -2288,7 +2279,7 @@ void Document_setDocumentURI(Local<v8::String> property, Local<Value> value, con
   HandleScope handle_scope;
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(info.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
-    doc->setDocumentURI(xv8::String(value));
+    doc->setDocumentURI(xv8::String(value->ToString()));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
 }
@@ -2340,8 +2331,8 @@ Handle<Value> Document_renameNode(const Arguments& args) {
   try {
     xercesc::DOMDocument *doc = static_cast<xercesc::DOMDocument*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::DOCUMENT_NODE));
     xercesc::DOMNode *node = _jsUnwrapNodeArg(args, 0);
-    xv8::String nsuri(_jsUnwrapStringArg(args, 1));
-    xv8::String qname(_jsUnwrapStringArg(args, 2));
+    xv8::String nsuri(args[1]);
+    xv8::String qname(args[2]);
     return handle_scope.Close(_jsCreateNode(doc->renameNode(node, nsuri, qname)));
   }
   catch (ArgumentUnwrapException const & ex) { ; }
@@ -2546,7 +2537,7 @@ void ProcessingInstruction_setData(Local<v8::String> property, Local<Value> valu
   HandleScope handle_scope;
   try {
     xercesc::DOMProcessingInstruction *pi = static_cast<xercesc::DOMProcessingInstruction*>(_jsUnwrapNode(info.Holder(), xercesc::DOMNode::PROCESSING_INSTRUCTION_NODE));
-    pi->setData(xv8::String(value));
+    pi->setData(xv8::String(value->ToString()));
   }
   catch (xercesc::DOMException const & ex) {
     ThrowException(Exception::Error(v8::String::New("exception setting ProcessingInstruction data")));
@@ -2600,7 +2591,7 @@ Handle<Value> Text_replaceWholeText(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMText *t = static_cast<xercesc::DOMText*>(_jsUnwrapNode(args.Holder(), xercesc::DOMNode::TEXT_NODE));
-    xv8::String content(_jsUnwrapStringArg(args, 0));
+    xv8::String content(args[0]);
     return handle_scope.Close(_jsCreateNode(t->replaceWholeText(content)));
   }
   catch (xercesc::DOMException const & ex) {
@@ -2640,8 +2631,8 @@ Handle<Value> TypeInfo_isDerivedFrom(const Arguments& args) {
   HandleScope handle_scope;
   try {
     xercesc::DOMTypeInfo *ti = _jsUnwrapTypeInfo(args.Holder());
-    xv8::String ns(_jsUnwrapStringArg(args, 0));
-    xv8::String name(_jsUnwrapStringArg(args, 1));
+    xv8::String ns(args[0]);
+    xv8::String name(args[1]);
     xercesc::DOMTypeInfo::DerivationMethods method = static_cast<xercesc::DOMTypeInfo::DerivationMethods>(_jsUnwrapIntegerArg(args, 2));
     return handle_scope.Close(Boolean::New(ti->isDerivedFrom(ns, name, method)));
   }
@@ -3319,6 +3310,13 @@ Document *xv8::Document::load(const char *path) {
     has_initialized_javascript = true;
   }
   return new Document(path);
+}
+
+void *xv8::Document::release(xv8::Document **doc) {
+  if (doc && *doc) {
+    delete(*doc);
+  }
+  *doc = static_cast<xv8::Document*>(0);
 }
 
 // TODO: delete v8wrap at shutdown time.
